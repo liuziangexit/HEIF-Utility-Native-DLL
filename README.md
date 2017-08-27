@@ -1,1 +1,1 @@
-# HEIF-Utility-DLL
+# HEIF-Utility-CommandLineTool
