@@ -3,11 +3,7 @@
 #include <string>
 #include <memory>
 
-class file_ptr final {//管理C语言文件指针生命周期的包装器
-					  //可以通过if(file_ptr)的方式判断file_ptr是否已经打开
-					  //可以在使用时手动fclose(file_ptr::get())，这不会导致未定义行为
-					  //仅支持移动拷贝
-					  //某些时候发现在使用此类的过程中有1(VS内存查看器中的“分配(差异)”)内存没有回收，这不是内存泄漏。
+class file_ptr final {//copy from liuzianglib(https://github.com/liuziangexit/liuzianglib
 public:
 	file_ptr() :fp(nullptr) {}
 
@@ -58,7 +54,7 @@ private:
 	FILE *fp;
 };
 
-bool extract(const char* srcfile, const char* dstfile)noexcept {
+bool extract(const char* srcfile, const char* dstfile)noexcept {//copy from heic2hevc(https://github.com/yohhoy/heic2hevc
 	try {
 		HevcImageFileReader reader;
 		reader.initialize(srcfile);
@@ -75,14 +71,11 @@ bool extract(const char* srcfile, const char* dstfile)noexcept {
 		HevcImageFileReader::DataVector bitstream;
 		reader.getItemDataWithDecoderParameters(contextId, itemId, bitstream);
 
-		//std::ofstream ofs(dstfile, std::ios::binary);
 		std::string writethis;
 		for (const auto& key : { "VPS", "SPS", "PPS" }) {
 			const auto& nalu = paramset[key];
-			//ofs.write((const char *)nalu.data(), nalu.size());
 			writethis += std::string((const char *)nalu.data(), nalu.size());
 		}
-		//ofs.write((const char *)bitstream.data(), bitstream.size());
 		writethis += std::string((const char *)bitstream.data(), bitstream.size());
 		
 		file_ptr ptr(fopen(dstfile, "wb"));
