@@ -1,7 +1,39 @@
 #include "hevcimagefilereader.cpp"
+#include "log.hpp"
 #include <iostream>
-#include <string>
-#include <memory>
+#include <fstream>
+#include <sstream>
+#include <cassert>
+#include <conio.h>
+
+#define CHECK_FILE_FEATURE(X) do { \
+        if(properties.fileFeature.hasFeature(ImageFileReaderInterface::FileFeature::X)){ fprintf(stdout, "  %-15s\tYES\n",#X); } else {  fprintf(stdout, "  %-15s\tNO\n",#X); } \
+    } while(0)
+
+struct Blob {
+	uint32_t idx;
+	std::vector<uint8_t> data;
+};
+
+struct FileData {
+	uint32_t width;
+	uint32_t height;
+	uint8_t rows;
+	uint8_t cols;
+	uint16_t rotation;
+	std::vector<Blob> tiles;
+};
+
+template <typename T>
+std::string toString(const T& value) {
+	std::stringstream sstr;
+	sstr << value;
+	if (sstr.fail()) {
+		//不需要clear，因为sstr不会再次使用
+		throw std::exception("std::stringstream::fail()==true");
+	}
+	return sstr.str();
+}
 
 class file_ptr final {//copy from liuzianglib(https://github.com/liuziangexit/liuzianglib
 public:
@@ -54,6 +86,89 @@ private:
 	FILE *fp;
 };
 
+void print_filedata(const FileData &filedata) {
+	fprintf(stdout, "\nFile information:\n");
+	fprintf(stdout, " width      :%d\n", filedata.width);
+	fprintf(stdout, " height     :%d\n", filedata.height);
+	fprintf(stdout, " rows       :%d\n", filedata.rows);
+	fprintf(stdout, " cols       :%d\n", filedata.cols);
+	fprintf(stdout, " rotation   :%d\n", filedata.rotation);
+	fprintf(stdout, " tiles      :%lu\n", filedata.tiles.size());
+}
+
+std::tuple<FileData, HevcImageFileReader::ParameterSetMap> LoadData(HevcImageFileReader &reader, uint32_t contextId) {
+	ImageFileReaderInterface::GridItem gridItem;
+	ImageFileReaderInterface::IdVector gridItemIds;
+	FileData filedata;
+
+	//get all grid items
+	reader.getItemListByType(contextId, "grid", gridItemIds);
+	gridItem = reader.getItemGrid(contextId, gridItemIds.at(0));
+	filedata.width = gridItem.outputWidth;
+	filedata.height = gridItem.outputHeight;
+	filedata.rows = gridItem.rowsMinusOne + 1;
+	filedata.cols = gridItem.columnsMinusOne + 1;
+
+	const uint32_t itemId = gridItemIds.at(0);
+	const auto itemProperties = reader.getItemProperties(contextId, itemId);
+	for (const auto& property : itemProperties) {
+		if (property.type == ImageFileReaderInterface::ItemPropertyType::IROT) {
+			filedata.rotation = reader.getPropertyIrot(contextId, property.index).rotation;
+		}
+	}
+	ImageFileReaderInterface::IdVector masterItemIds;
+	reader.getItemListByType(contextId, "master", masterItemIds);
+	for (auto id : masterItemIds) {
+		filedata.tiles.push_back(Blob{ id });
+	}
+
+	for (auto & tile : filedata.tiles) {
+		reader.getItemDataWithDecoderParameters(contextId, tile.idx, tile.data);
+		//std::cout << "getTileBlob idx: " << tile.idx << " Size: " << tile.data.size() << "bytes" << std::endl;
+	}
+
+	std::cout << "getDecoderParameterSets\n";
+
+	HevcImageFileReader::ParameterSetMap paramset;
+	reader.getDecoderParameterSets(contextId, filedata.tiles[0].idx, paramset);
+
+	std::cout << "construct tuple\n";
+	return std::tuple<FileData, HevcImageFileReader::ParameterSetMap>(filedata, paramset);
+}
+
+void WriteData(std::tuple<FileData, HevcImageFileReader::ParameterSetMap>& data) {
+	try {
+		std::cout << "1\n";
+		for (auto tile : std::get<0>(data).tiles) {
+			std::string writethis;
+			std::cout << "2\n";
+			/*
+			for (const auto& key : { "VPS", "SPS", "PPS" }) {
+				const auto& nalu = std::get<1>(data)[key];
+				writethis += std::string((const char *)nalu.data(), nalu.size());
+			}*/
+			writethis += std::string((char*)&tile.data[0], tile.data.size());
+			std::cout << "3\n";
+			char buff[100];
+			snprintf(buff, sizeof(buff), "%d.tile", tile.idx);
+			std::cout << "4\n";
+			std::string filename = buff;
+			file_ptr ptr(fopen(filename.c_str(), "wb"));
+			if (!ptr) continue;
+			if (fwrite(writethis.c_str(), 1, writethis.size(), ptr.get()) == -1);
+			std::cout << "5\n";
+		}
+	}
+	catch (std::exception& ex) {
+		std::cout << ex.what();
+		abort();
+	}
+	catch (...) {
+		std::cout << "unknown ex";
+		abort();
+	}
+}
+
 bool extract(const char* srcfile, const char* dstfile)noexcept {//copy from heic2hevc(https://github.com/yohhoy/heic2hevc
 	try {
 		HevcImageFileReader reader;
@@ -63,24 +178,29 @@ bool extract(const char* srcfile, const char* dstfile)noexcept {//copy from heic
 
 		HevcImageFileReader::IdVector ids;
 		reader.getItemListByType(contextId, "master", ids);
-		const uint32_t itemId = ids[0];
+
+		int index = 0;
 
 		HevcImageFileReader::ParameterSetMap paramset;
-		reader.getDecoderParameterSets(contextId, itemId, paramset);
-
-		HevcImageFileReader::DataVector bitstream;
-		reader.getItemDataWithDecoderParameters(contextId, itemId, bitstream);
-
-		std::string writethis;
+		reader.getDecoderParameterSets(contextId, ids[1], paramset);
+		std::string paramsetstr;
 		for (const auto& key : { "VPS", "SPS", "PPS" }) {
 			const auto& nalu = paramset[key];
-			writethis += std::string((const char *)nalu.data(), nalu.size());
+			paramsetstr += std::string((const char *)nalu.data(), nalu.size());
+		}		
+
+		for (const auto& p : ids) {
+			HevcImageFileReader::DataVector bitstream;
+			reader.getItemDataWithDecoderParameters(contextId, p, bitstream);
+
+			std::string writethis{ paramsetstr };
+			writethis += std::string((const char *)bitstream.data(), bitstream.size());
+
+			file_ptr ptr(fopen((std::string(dstfile) + toString(index)).c_str(), "wb"));
+			index++;
+			if (!ptr) continue;
+			fwrite(writethis.c_str(), 1, writethis.size(), ptr.get());
 		}
-		writethis += std::string((const char *)bitstream.data(), bitstream.size());
-		
-		file_ptr ptr(fopen(dstfile, "wb"));
-		if (!ptr) return false;
-		if (fwrite(writethis.c_str(), 1, writethis.size(), ptr.get()) == -1) return false;
 		return true;
 	}
 	catch (...) {
@@ -88,10 +208,51 @@ bool extract(const char* srcfile, const char* dstfile)noexcept {//copy from heic
 	}
 }
 
-int main(int argc, char* argv[]) {
-	if (argc < 3)
-		return 1;
-	if (extract(argv[1], argv[2]))
-		return 0;
-	return 1;
+int main(int argc, char *argv[]) {
+	std::string filename;
+	std::cout << "input filename:";
+	std::cin >> filename;
+	
+	Log::setLevel(Log::LogLevel::INFO);
+	
+	HevcImageFileReader reader;
+	fprintf(stdout, "Reading %s\n", filename);
+	reader.initialize(filename);
+
+	const auto& properties = reader.getFileProperties();
+	assert(properties.fileFeature.hasFeature(ImageFileReaderInterface::FileFeature::HasRootLevelMetaBox));
+	const uint32_t contextId = properties.rootLevelMetaBoxProperties.contextId;
+	fprintf(stdout, "\nGot contextId:%d\n", contextId);
+
+	fprintf(stdout, "properties of file:\n");
+	CHECK_FILE_FEATURE(HasSingleImage);
+	CHECK_FILE_FEATURE(HasImageCollection);
+	CHECK_FILE_FEATURE(HasImageSequence);
+	CHECK_FILE_FEATURE(HasCoverImage);
+	CHECK_FILE_FEATURE(HasOtherTimedMedia);
+	CHECK_FILE_FEATURE(HasRootLevelMetaBox);
+	CHECK_FILE_FEATURE(HasMoovLevelMetaBox);
+	CHECK_FILE_FEATURE(HasAlternateTracks);
+
+	constexpr int mode = 1;
+
+	switch (mode) {
+	case 0: {	std::cout << "load\n";
+		auto data = LoadData(reader, contextId);
+		std::cout << "print\n";
+		print_filedata(std::get<0>(data));
+		std::cout << "write\n";
+		WriteData(data);
+		std::cout << "end\n"; }break;
+	case 1: {
+		std::cout << "extract\n";
+		bool rv = extract(filename.c_str(), "filename.out.");
+		if (rv)
+			std::cout << "func returned true\n";
+		else
+			std::cout << "func returned false\n";
+	}
+	}
+
+	_getch();
 }
