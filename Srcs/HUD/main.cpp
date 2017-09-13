@@ -127,50 +127,14 @@ std::tuple<FileData, HevcImageFileReader::ParameterSetMap> LoadData(HevcImageFil
 		//std::cout << "getTileBlob idx: " << tile.idx << " Size: " << tile.data.size() << "bytes" << std::endl;
 	}
 
-	std::cout << "getDecoderParameterSets\n";
-
 	HevcImageFileReader::ParameterSetMap paramset;
 	reader.getDecoderParameterSets(contextId, filedata.tiles[0].idx, paramset);
 
-	std::cout << "construct tuple\n";
 	return std::tuple<FileData, HevcImageFileReader::ParameterSetMap>(filedata, paramset);
 }
 
-void WriteData(std::tuple<FileData, HevcImageFileReader::ParameterSetMap>& data) {
-	try {
-		std::cout << "1\n";
-		for (auto tile : std::get<0>(data).tiles) {
-			std::string writethis;
-			std::cout << "2\n";
-			/*
-			for (const auto& key : { "VPS", "SPS", "PPS" }) {
-				const auto& nalu = std::get<1>(data)[key];
-				writethis += std::string((const char *)nalu.data(), nalu.size());
-			}*/
-			writethis += std::string((char*)&tile.data[0], tile.data.size());
-			std::cout << "3\n";
-			char buff[100];
-			snprintf(buff, sizeof(buff), "%d.tile", tile.idx);
-			std::cout << "4\n";
-			std::string filename = buff;
-			file_ptr ptr(fopen(filename.c_str(), "wb"));
-			if (!ptr) continue;
-			if (fwrite(writethis.c_str(), 1, writethis.size(), ptr.get()) == -1);
-			std::cout << "5\n";
-		}
-	}
-	catch (std::exception& ex) {
-		std::cout << ex.what();
-		abort();
-	}
-	catch (...) {
-		std::cout << "unknown ex";
-		abort();
-	}
-}
-
 bool extract(const char* srcfile, const char* dstfile)noexcept {//copy from heic2hevc(https://github.com/yohhoy/heic2hevc
-	try {
+	try {		
 		HevcImageFileReader reader;
 		reader.initialize(srcfile);
 		const auto& props = reader.getFileProperties();
@@ -212,9 +176,9 @@ int main(int argc, char *argv[]) {
 	std::string filename;
 	std::cout << "input filename:";
 	std::cin >> filename;
-	
+
 	Log::setLevel(Log::LogLevel::INFO);
-	
+
 	HevcImageFileReader reader;
 	fprintf(stdout, "Reading %s\n", filename);
 	reader.initialize(filename);
@@ -234,25 +198,13 @@ int main(int argc, char *argv[]) {
 	CHECK_FILE_FEATURE(HasMoovLevelMetaBox);
 	CHECK_FILE_FEATURE(HasAlternateTracks);
 
-	constexpr int mode = 1;
-
-	switch (mode) {
-	case 0: {	std::cout << "load\n";
-		auto data = LoadData(reader, contextId);
-		std::cout << "print\n";
-		print_filedata(std::get<0>(data));
-		std::cout << "write\n";
-		WriteData(data);
-		std::cout << "end\n"; }break;
-	case 1: {
-		std::cout << "extract\n";
-		bool rv = extract(filename.c_str(), "filename.out.");
-		if (rv)
-			std::cout << "func returned true\n";
-		else
-			std::cout << "func returned false\n";
-	}
-	}
+	auto data = LoadData(reader, contextId);
+	print_filedata(std::get<0>(data));
+	bool rv = extract(filename.c_str(), "out.");
+	if (rv)
+		std::cout << "func returned true\n";
+	else
+		std::cout << "func returned false\n";
 
 	_getch();
 }
