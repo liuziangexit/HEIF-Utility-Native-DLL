@@ -23,6 +23,7 @@ struct heifdata {
 	uint32_t height;
 	uint32_t rows;
 	uint32_t cols;
+	uint32_t rotation = 0;
 	//data
 	std::vector<HevcImageFileReader::DataVector> tiles;
 	std::string paramset;
@@ -43,8 +44,11 @@ std::string heif_info_str(const heifdata& info)noexcept {
 	rv += "  cols: ";
 	rv += DC::STR::toString(info.cols) + "\n";
 
+	rv += "  rotation: ";
+	rv += DC::STR::toString(info.rotation) + "\n";
+
 	rv += "  tiles: ";
-	rv += DC::STR::toString(info.tiles.size()) + "\n";
+	rv += DC::STR::toString(info.tiles.size());
 
 	return rv;
 }
@@ -60,6 +64,14 @@ bool read_heif_info(heifdata& readto, HevcImageFileReader& reader, const uint32_
 		readto.height = gridItem.outputHeight;
 		readto.rows = gridItem.rowsMinusOne + 1;
 		readto.cols = gridItem.columnsMinusOne + 1;
+
+		const uint32_t itemId = gridItemIds.at(0);
+		const auto itemProperties = reader.getItemProperties(contextId, itemId);
+		for (const auto& property : itemProperties) {
+			if (property.type == ImageFileReaderInterface::ItemPropertyType::IROT) {
+				readto.rotation = reader.getPropertyIrot(contextId, property.index).rotation;
+			}
+		}
 
 		return true;
 	}
@@ -135,22 +147,25 @@ inline std::string get_tile_str(const HevcImageFileReader::DataVector& tile, con
 	return paramset + std::string(reinterpret_cast<const char*>(tile.data()), tile.size());
 }
 
-//general mode use this
-inline bool write_heif_as_265_SingleImage(const std::string& filename, const heifdata& datatowrite, const uint32_t& index)noexcept {
+inline bool write_heif_as_GenericFormat_SingleImage(const std::string& filename, const heifdata& datatowrite, const uint32_t& index, const std::string& format)noexcept {
 	try {
-		return DC::File::write<DC::File::binary>(filename, get_tile_str(datatowrite.tiles.at(index), datatowrite.paramset));
+		DC::File::write<DC::File::binary>(filename + ".temp", get_tile_str(datatowrite.tiles.at(index), datatowrite.paramset));
+		system((std::string("ffmpeg -y -i ") + filename + ".temp" + " " + filename + "." + format).c_str());
+		DC::File::del(filename + ".temp");
+		return true;
 	}
 	catch (...) {
 		return false;
 	}
 }
 
-//iOS-11 mode use this
-inline bool write_heif_as_265_AllImage(const std::string& filename, const heifdata& datatowrite)noexcept {
+inline bool write_heif_as_GenericFormat_AllImage(const std::string& filename, const heifdata& datatowrite, const std::string& format)noexcept {
 	try {
 		uint32_t index = 0;
 		for (const auto& p : datatowrite.tiles) {
-			DC::File::write<DC::File::binary>(filename + DC::STR::toString(index), get_tile_str(p, datatowrite.paramset));
+			DC::File::write<DC::File::binary>(filename + DC::STR::toString(index) + ".temp", get_tile_str(p, datatowrite.paramset));
+			system((std::string("ffmpeg -y -i ") + filename + DC::STR::toString(index) + ".temp" + " " + filename + DC::STR::toString(index) + "." + format).c_str());
+			DC::File::del(filename + DC::STR::toString(index) + ".temp");
 			++index;
 		}
 		return true;
@@ -161,40 +176,41 @@ inline bool write_heif_as_265_AllImage(const std::string& filename, const heifda
 }
 
 int main(int argc, char *argv[]) {
-	//general xxx.HEIC outputfilename
-	//convert the first image inside xxx.HEIC to H.265 stream, and save to file outputfilename
-	//example: HUD general IMG_4228.HEIC out.265
+	//general xxx.HEIC outputfilename outputformat
+	//convert the first image inside xxx.HEIC to Generic Format, and save to file
+	//example: HUD general IMG_4228.HEIC out jpg
 
-	//iOS-11 xxx.HEIC outputfilename
-	//convert all image inside xxx.HEIC to H.265 stream, and save to file outputfilename
-	//example: HUD iOS-11 IMG_4228.HEIC out.265.
+	//iOS-11 xxx.HEIC outputfilename outputformat
+	//convert all image inside xxx.HEIC to Generic Format, and save to file
+	//example: HUD iOS-11 IMG_4228.HEIC out jpg
+
+	//view xxx.HEIC
+	//show HEIF file info
+	//example: HUD view IMG_4228.HEIC
+
 	auto cmd_args(DC::GetCommandLineParameters(argc, argv));
-
-	if (argc < 4) {
-		std::cout << "view https://github.com/liuziangexit/HEIF-Utility-CommandLineTool for more infomation.";
-		return 0;
-	}
 
 	heifdata data;
 
 	try {
-		data = read_heif(cmd_args[2]);
+		data = read_heif(cmd_args.at(2));
 	}
 	catch (std::exception& ex) {
 		std::cout << "an uncatched exception has been throw: " << ex.what();
 		return 0;
 	}
 
-	std::cout << "\n\nImage Info\n" << heif_info_str(data) << "\n\n";
-	
+	std::cout << "\n\nImage Info\n" << heif_info_str(data) << "\n";
+
 	if (cmd_args[1] == "general") {
-		auto look = write_heif_as_265_SingleImage(cmd_args[3], data, 0);
+		auto look = write_heif_as_GenericFormat_SingleImage(cmd_args.at(3), data, 0, cmd_args.at(4));
 		return 0;
 	}
 
 	if (cmd_args[1] == "iOS-11") {
-		auto look = write_heif_as_265_AllImage(cmd_args[3], data);
+		auto look = write_heif_as_GenericFormat_AllImage(cmd_args.at(3), data, cmd_args.at(4));
 		return 0;
 	}
-		
+
+	return 0;
 }
