@@ -49,7 +49,7 @@ std::string heif_info_str(const heifdata& info)noexcept {
 	return rv;
 }
 
-bool get_heif_info(heifdata& readto, HevcImageFileReader& reader, const uint32_t& contextId)noexcept {
+bool read_heif_info(heifdata& readto, HevcImageFileReader& reader, const uint32_t& contextId)noexcept {
 	try {
 		ImageFileReaderInterface::GridItem gridItem;
 		ImageFileReaderInterface::IdVector gridItemIds;
@@ -68,13 +68,13 @@ bool get_heif_info(heifdata& readto, HevcImageFileReader& reader, const uint32_t
 	}
 }
 
-bool get_heif_paramset(heifdata& readto, HevcImageFileReader& reader, const uint32_t& contextid, const HevcImageFileReader::IdVector& ids)noexcept {
+bool read_heif_paramset(heifdata& readto, HevcImageFileReader& reader, const uint32_t& contextid, const HevcImageFileReader::IdVector& ids)noexcept {
 	try {
 		HevcImageFileReader::ParameterSetMap paramset;
 		reader.getDecoderParameterSets(contextid, ids.at(0), paramset);
 		std::string paramsetstr;
 		for (const auto& key : { "VPS", "SPS", "PPS" }) {
-			const auto& nalu = paramset[key];
+			const auto& nalu = paramset.at(key);
 			paramsetstr += std::string((const char *)nalu.data(), nalu.size());
 		}
 
@@ -87,7 +87,7 @@ bool get_heif_paramset(heifdata& readto, HevcImageFileReader& reader, const uint
 	}
 }
 
-bool get_heif_tiles(heifdata& readto, HevcImageFileReader& reader, const uint32_t& contextid, const HevcImageFileReader::IdVector& ids)noexcept {
+bool read_heif_tiles(heifdata& readto, HevcImageFileReader& reader, const uint32_t& contextid, const HevcImageFileReader::IdVector& ids)noexcept {
 	try {
 		readto.tiles.resize(ids.size());
 
@@ -117,22 +117,47 @@ heifdata read_heif(const std::string& filename) {
 	reader.getItemListByType(contextid, "master", ids);
 
 	//read info
-	if (!get_heif_info(returnthis, reader, contextid))
+	if (!read_heif_info(returnthis, reader, contextid))
 		throw std::exception("get_heif_info returned false");
 
 	//read paramset
-	if (!get_heif_paramset(returnthis, reader, contextid, ids))
+	if (!read_heif_paramset(returnthis, reader, contextid, ids))
 		throw std::exception("get_heif_paramset returned false");
 
 	//read tiles
-	if (!get_heif_tiles(returnthis, reader, contextid, ids))
+	if (!read_heif_tiles(returnthis, reader, contextid, ids))
 		throw std::exception("get_heif_tiles returned false");
 
 	return returnthis;
 }
 
-bool write_heif_as_265() {
+inline std::string get_tile_str(const HevcImageFileReader::DataVector& tile, const std::string& paramset) {
+	return paramset + std::string(reinterpret_cast<const char*>(tile.data()), tile.size());
+}
 
+//general mode use this
+inline bool write_heif_as_265_SingleImage(const std::string& filename, const heifdata& datatowrite, const uint32_t& index)noexcept {
+	try {
+		return DC::File::write<DC::File::binary>(filename, get_tile_str(datatowrite.tiles.at(index), datatowrite.paramset));
+	}
+	catch (...) {
+		return false;
+	}
+}
+
+//iOS-11 mode use this
+inline bool write_heif_as_265_AllImage(const std::string& filename, const heifdata& datatowrite)noexcept {
+	try {
+		uint32_t index = 0;
+		for (const auto& p : datatowrite.tiles) {
+			DC::File::write<DC::File::binary>(filename + DC::STR::toString(index), get_tile_str(p, datatowrite.paramset));
+			++index;
+		}
+		return true;
+	}
+	catch (...) {
+		return false;
+	}
 }
 
 int main(int argc, char *argv[]) {
@@ -145,8 +170,10 @@ int main(int argc, char *argv[]) {
 	//example: HUD iOS-11 IMG_4228.HEIC out.265.
 	auto cmd_args(DC::GetCommandLineParameters(argc, argv));
 
-	if (argc<4)
+	if (argc < 4) {
+		std::cout << "view https://github.com/liuziangexit/HEIF-Utility-CommandLineTool for more infomation.";
 		return 0;
+	}
 
 	heifdata data;
 
@@ -155,17 +182,18 @@ int main(int argc, char *argv[]) {
 	}
 	catch (std::exception& ex) {
 		std::cout << "an uncatched exception has been throw: " << ex.what();
-		_getch();
 		return 0;
 	}
 
 	std::cout << "\n\nImage Info\n" << heif_info_str(data) << "\n\n";
 	
 	if (cmd_args[1] == "general") {
+		auto look = write_heif_as_265_SingleImage(cmd_args[3], data, 0);
 		return 0;
 	}
 
 	if (cmd_args[1] == "iOS-11") {
+		auto look = write_heif_as_265_AllImage(cmd_args[3], data);
 		return 0;
 	}
 		
