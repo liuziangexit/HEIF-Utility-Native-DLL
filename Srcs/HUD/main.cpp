@@ -174,24 +174,13 @@ inline std::string get_tile_str(const HevcImageFileReader::DataVector& tile, con
 	return paramset + std::string(reinterpret_cast<const char*>(tile.data()), tile.size());
 }
 
-inline bool write_heif_as_GenericFormat_SingleImage(const std::string& filename, const heifdata& datatowrite, const uint32_t& index, const std::string& format)noexcept {
-	try {
-		DC::File::write<DC::File::binary>(filename + ".temp", get_tile_str(datatowrite.tiles.at(index), datatowrite.paramset));
-		system((std::string("ffmpeg -loglevel panic -y -i ") + filename + ".temp" + " " + filename + "." + format).c_str());
-		DC::File::del(filename + ".temp");
-		return true;
-	}
-	catch (...) {
-		return false;
-	}
-}
-
-inline bool write_heif_as_GenericFormat_AllImage(const std::string& filename, const heifdata& datatowrite, const std::string& format)noexcept {
+inline bool write_heif_as_GenericFormat_AllImage(const std::string& filename, const heifdata& datatowrite, const std::string& format, const std::string& startup_path)noexcept {
 	try {
 		uint32_t index = 0;
 		for (const auto& p : datatowrite.tiles) {
-			DC::File::write<DC::File::binary>(filename + DC::STR::toString(index) + ".temp", get_tile_str(p, datatowrite.paramset));
-			system((std::string("ffmpeg -loglevel panic -y -i ") + filename + DC::STR::toString(index) + ".temp" + " " + filename + DC::STR::toString(index) + "." + "png").c_str());
+			if (!DC::File::write<DC::File::binary>(filename + DC::STR::toString(index) + ".temp", get_tile_str(p, datatowrite.paramset)))
+				return false;
+			system((std::string("ffmpeg -loglevel panic -y -i ") + "\"" + filename + DC::STR::toString(index) + ".temp\"" + " \"" + filename + DC::STR::toString(index) + "." + "png\"").c_str());
 			DC::File::del(filename + DC::STR::toString(index) + ".temp");
 			++index;
 		}
@@ -226,6 +215,11 @@ int main(int argc, char *argv[]) {
 	//example: HUD view IMG_4228.HEIC
 
 	auto cmd_args(DC::GetCommandLineParameters(argc, argv));
+	
+	auto startup_path = DC::STR::getSub(cmd_args.at(0), -1, *DC::STR::find(cmd_args.at(0), "\\").getplace_ref().rbegin() + 1);
+
+	cmd_args.at(3) = startup_path + cmd_args.at(3);
+	//cmd_args.at(5) = startup_path + cmd_args.at(5);
 
 	heifdata data;
 
@@ -247,11 +241,15 @@ int main(int argc, char *argv[]) {
 
 	if (cmd_args[1] == "iOS-11") {
 		printf("write temp files...");
-		auto look = write_heif_as_GenericFormat_AllImage(cmd_args.at(3), data, cmd_args.at(4));
-		printf("ok\n");
+		if (write_heif_as_GenericFormat_AllImage(cmd_args.at(3), data, cmd_args.at(4), startup_path))
+			printf("ok\n");
+		else {
+			printf("err\n");
+			return 0;
+		}
 		printf("blending files...");
 		if (write_info(cmd_args.at(5), data, cmd_args))
-			system((std::string("HBT ") + cmd_args.at(5)).c_str());
+			system((std::string("HBT ") + "\"" + startup_path + cmd_args.at(5) + "\"").c_str());
 		printf("ok\n");
 		printf("clear temp files...");
 		clear_265_temp_files(cmd_args.at(3), data, cmd_args.at(4));
