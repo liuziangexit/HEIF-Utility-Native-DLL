@@ -8,6 +8,7 @@
 #include "liuzianglib/liuzianglib.h"
 #include "liuzianglib/DC_STR.h"
 #include "liuzianglib/DC_File.h"
+#include "liuzianglib/DC_jsonBuilder.h"
 
 struct heifdata {
 	heifdata() = default;
@@ -53,6 +54,32 @@ std::string heif_info_str(const heifdata& info)noexcept {
 	return rv;
 }
 
+bool write_info(const std::string& filename, const heifdata& info,const DC::PARS_V& cmd_args)noexcept {
+	try {
+		DC::Web::jsonBuilder::object jsobj;
+
+		jsobj.add("filename", DC::Web::jsonBuilder::value(cmd_args.at(3)));
+		jsobj.add("format", DC::Web::jsonBuilder::value("png"));
+		jsobj.add("indexBegin", DC::Web::jsonBuilder::number(0));
+		jsobj.add("number", DC::Web::jsonBuilder::number((int32_t)info.tiles.size()));
+		jsobj.add("outputfilename", DC::Web::jsonBuilder::value(cmd_args.at(3)));
+		jsobj.add("outputformat", DC::Web::jsonBuilder::value(cmd_args.at(4)));
+		jsobj.add("jpgquality", DC::Web::jsonBuilder::number(DC::STR::toType<int>(cmd_args.at(6))));
+
+		jsobj.add("width", DC::Web::jsonBuilder::number((int32_t)info.width));
+		jsobj.add("height", DC::Web::jsonBuilder::number((int32_t)info.height));
+		jsobj.add("rows", DC::Web::jsonBuilder::number((int32_t)info.rows));
+		jsobj.add("cols", DC::Web::jsonBuilder::number((int32_t)info.cols));
+		jsobj.add("rotation", DC::Web::jsonBuilder::number((int32_t)info.rotation));
+		jsobj.add("tiles", DC::Web::jsonBuilder::number((int32_t)info.tiles.size()));
+
+		return DC::File::write(filename, jsobj.toString());
+	}
+	catch (...) {
+		return false;
+	}
+}
+
 bool read_heif_info(heifdata& readto, HevcImageFileReader& reader, const uint32_t& contextId)noexcept {
 	try {
 		ImageFileReaderInterface::GridItem gridItem;
@@ -60,7 +87,7 @@ bool read_heif_info(heifdata& readto, HevcImageFileReader& reader, const uint32_
 
 		reader.getItemListByType(contextId, "grid", gridItemIds);
 		gridItem = reader.getItemGrid(contextId, gridItemIds.at(0));
-		readto.width= gridItem.outputWidth;
+		readto.width = gridItem.outputWidth;
 		readto.height = gridItem.outputHeight;
 		readto.rows = gridItem.rowsMinusOne + 1;
 		readto.cols = gridItem.columnsMinusOne + 1;
@@ -106,7 +133,7 @@ bool read_heif_tiles(heifdata& readto, HevcImageFileReader& reader, const uint32
 		decltype(readto.tiles)::size_type index = 0;
 
 		for (const auto& p : ids) {
-			reader.getItemDataWithDecoderParameters(contextid, p, readto.tiles[index]);			
+			reader.getItemDataWithDecoderParameters(contextid, p, readto.tiles[index]);
 			++index;
 		}
 
@@ -150,7 +177,7 @@ inline std::string get_tile_str(const HevcImageFileReader::DataVector& tile, con
 inline bool write_heif_as_GenericFormat_SingleImage(const std::string& filename, const heifdata& datatowrite, const uint32_t& index, const std::string& format)noexcept {
 	try {
 		DC::File::write<DC::File::binary>(filename + ".temp", get_tile_str(datatowrite.tiles.at(index), datatowrite.paramset));
-		system((std::string("ffmpeg -y -i ") + filename + ".temp" + " " + filename + "." + format).c_str());
+		system((std::string("ffmpeg -loglevel panic -y -i ") + filename + ".temp" + " " + filename + "." + format).c_str());
 		DC::File::del(filename + ".temp");
 		return true;
 	}
@@ -164,7 +191,7 @@ inline bool write_heif_as_GenericFormat_AllImage(const std::string& filename, co
 		uint32_t index = 0;
 		for (const auto& p : datatowrite.tiles) {
 			DC::File::write<DC::File::binary>(filename + DC::STR::toString(index) + ".temp", get_tile_str(p, datatowrite.paramset));
-			system((std::string("ffmpeg -y -i ") + filename + DC::STR::toString(index) + ".temp" + " " + filename + DC::STR::toString(index) + "." + format).c_str());
+			system((std::string("ffmpeg -loglevel panic -y -i ") + filename + DC::STR::toString(index) + ".temp" + " " + filename + DC::STR::toString(index) + "." + "png").c_str());
 			DC::File::del(filename + DC::STR::toString(index) + ".temp");
 			++index;
 		}
@@ -175,14 +202,24 @@ inline bool write_heif_as_GenericFormat_AllImage(const std::string& filename, co
 	}
 }
 
-int main(int argc, char *argv[]) {
-	//general xxx.HEIC outputfilename outputformat
-	//convert the first image inside xxx.HEIC to Generic Format, and save to file
-	//example: HUD general IMG_4228.HEIC out jpg
+inline bool clear_265_temp_files(const std::string& filename, const heifdata& datatowrite, const std::string& format)noexcept {
+	try {
+		uint32_t index = 0;
+		for (const auto& p : datatowrite.tiles) {
+			DC::File::del(filename + DC::STR::toString(index) + "." + "png");
+			++index;
+		}
+		return true;
+	}
+	catch (...) {
+		return false;
+	}
+}
 
-	//iOS-11 xxx.HEIC outputfilename outputformat
+int main(int argc, char *argv[]) {
+	//iOS-11 xxx.HEIC outputfilename outputformat jsonoutputfilename jpgquality
 	//convert all image inside xxx.HEIC to Generic Format, and save to file
-	//example: HUD iOS-11 IMG_4228.HEIC out jpg
+	//example: HUD iOS-11 IMG_4228.HEIC out jpg imageinfo.json 50
 
 	//view xxx.HEIC
 	//show HEIF file info
@@ -193,22 +230,34 @@ int main(int argc, char *argv[]) {
 	heifdata data;
 
 	try {
+		Log::setLevel(Log::LogLevel::ERROR);
+		printf("load file...");
 		data = read_heif(cmd_args.at(2));
+		printf("ok\n");
 	}
 	catch (std::exception& ex) {
 		std::cout << "an uncatched exception has been throw: " << ex.what();
 		return 0;
 	}
-
-	std::cout << "\n\nImage Info\n" << heif_info_str(data) << "\n";
-
-	if (cmd_args[1] == "general") {
-		auto look = write_heif_as_GenericFormat_SingleImage(cmd_args.at(3), data, 0, cmd_args.at(4));
+	
+	if (cmd_args[1] == "view") {
+		std::cout << "\n\nImage Info\n" << heif_info_str(data) << "\n";
 		return 0;
 	}
 
 	if (cmd_args[1] == "iOS-11") {
+		printf("write temp files...");
 		auto look = write_heif_as_GenericFormat_AllImage(cmd_args.at(3), data, cmd_args.at(4));
+		printf("ok\n");
+		printf("blending files...");
+		if (write_info(cmd_args.at(5), data, cmd_args))
+			system((std::string("HBT ") + cmd_args.at(5)).c_str());
+		printf("ok\n");
+		printf("clear temp files...");
+		clear_265_temp_files(cmd_args.at(3), data, cmd_args.at(4));
+		DC::File::del(cmd_args.at(5));
+		printf("ok\n");
+
 		return 0;
 	}
 
