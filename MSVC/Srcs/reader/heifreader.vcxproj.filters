@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\reader\hevcimagefilereader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\reader\imagefilereaderfactory.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\reader\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{C967B71C-9535-396E-B93E-81037097EF46}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

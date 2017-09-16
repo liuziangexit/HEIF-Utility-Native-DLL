@@ -1,0 +1,357 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="MinSizeRel|x64">
+      <Configuration>MinSizeRel</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="RelWithDebInfo|x64">
+      <Configuration>RelWithDebInfo</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{009848BC-5FF8-361D-9443-6AE0928D5195}</ProjectGuid>
+    <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
+    <Keyword>Win32Proj</Keyword>
+    <Platform>x64</Platform>
+    <ProjectName>common</ProjectName>
+    <VCProjectUpgraderObjectName>NoUpgrade</VCProjectUpgraderObjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\MSVC\Srcs\common\Debug\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">common.dir\Debug\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">common</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.lib</TargetExt>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\MSVC\Srcs\common\Release\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">common.dir\Release\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">common</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.lib</TargetExt>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\MSVC\Srcs\common\MinSizeRel\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">common.dir\MinSizeRel\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">common</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">.lib</TargetExt>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\MSVC\Srcs\common\RelWithDebInfo\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">common.dir\RelWithDebInfo\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">common</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">.lib</TargetExt>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common;C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\parser;C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\parser\avcparser;C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\parser\h265parser;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>Debug/</AssemblerListingLocation>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <CppLanguageStandard>c++11</CppLanguageStandard>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DisableLanguageExtensions>true</DisableLanguageExtensions>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <Optimization>Disabled</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <SuppressStartupBanner></SuppressStartupBanner>
+      <WarningLevel>Level4</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;CMAKE_INTDIR="Debug";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;CMAKE_INTDIR=\"Debug\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common;C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\parser;C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\parser\avcparser;C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\parser\h265parser;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common;C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\parser;C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\parser\avcparser;C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\parser\h265parser;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Lib>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common;C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\parser;C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\parser\avcparser;C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\parser\h265parser;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>Release/</AssemblerListingLocation>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <CppLanguageStandard>c++11</CppLanguageStandard>
+      <DisableLanguageExtensions>true</DisableLanguageExtensions>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <SuppressStartupBanner></SuppressStartupBanner>
+      <WarningLevel>Level4</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR="Release";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat></DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR=\"Release\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common;C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\parser;C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\parser\avcparser;C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\parser\h265parser;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common;C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\parser;C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\parser\avcparser;C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\parser\h265parser;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Lib>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common;C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\parser;C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\parser\avcparser;C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\parser\h265parser;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>MinSizeRel/</AssemblerListingLocation>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <CppLanguageStandard>c++11</CppLanguageStandard>
+      <DisableLanguageExtensions>true</DisableLanguageExtensions>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <Optimization>MinSpace</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <SuppressStartupBanner></SuppressStartupBanner>
+      <WarningLevel>Level4</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR="MinSizeRel";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat></DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR=\"MinSizeRel\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common;C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\parser;C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\parser\avcparser;C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\parser\h265parser;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common;C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\parser;C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\parser\avcparser;C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\parser\h265parser;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Lib>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common;C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\parser;C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\parser\avcparser;C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\parser\h265parser;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>RelWithDebInfo/</AssemblerListingLocation>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <CppLanguageStandard>c++11</CppLanguageStandard>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DisableLanguageExtensions>true</DisableLanguageExtensions>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <SuppressStartupBanner></SuppressStartupBanner>
+      <WarningLevel>Level4</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR="RelWithDebInfo";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR=\"RelWithDebInfo\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common;C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\parser;C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\parser\avcparser;C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\parser\h265parser;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common;C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\parser;C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\parser\avcparser;C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\parser\h265parser;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Lib>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\CMakeLists.txt">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Building Custom Rule C:/Users/liuzi/Documents/GitHub/HEIF-Utility-CommandLineTool/Srcs/common/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
+C:\Software\cmake\bin\cmake.exe -HC:/Users/liuzi/Documents/GitHub/HEIF-Utility-CommandLineTool -BC:/Users/liuzi/Documents/GitHub/HEIF-Utility-CommandLineTool/MSVC --check-stamp-file C:/Users/liuzi/Documents/GitHub/HEIF-Utility-CommandLineTool/MSVC/Srcs/common/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:/Users/liuzi/Documents/GitHub/HEIF-Utility-CommandLineTool/Srcs/common/CMakeLists.txt;C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\CMakeLists.txt;C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\MSVC\Srcs\common\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Building Custom Rule C:/Users/liuzi/Documents/GitHub/HEIF-Utility-CommandLineTool/Srcs/common/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+C:\Software\cmake\bin\cmake.exe -HC:/Users/liuzi/Documents/GitHub/HEIF-Utility-CommandLineTool -BC:/Users/liuzi/Documents/GitHub/HEIF-Utility-CommandLineTool/MSVC --check-stamp-file C:/Users/liuzi/Documents/GitHub/HEIF-Utility-CommandLineTool/MSVC/Srcs/common/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:/Users/liuzi/Documents/GitHub/HEIF-Utility-CommandLineTool/Srcs/common/CMakeLists.txt;C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\CMakeLists.txt;C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\MSVC\Srcs\common\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Building Custom Rule C:/Users/liuzi/Documents/GitHub/HEIF-Utility-CommandLineTool/Srcs/common/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
+C:\Software\cmake\bin\cmake.exe -HC:/Users/liuzi/Documents/GitHub/HEIF-Utility-CommandLineTool -BC:/Users/liuzi/Documents/GitHub/HEIF-Utility-CommandLineTool/MSVC --check-stamp-file C:/Users/liuzi/Documents/GitHub/HEIF-Utility-CommandLineTool/MSVC/Srcs/common/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:/Users/liuzi/Documents/GitHub/HEIF-Utility-CommandLineTool/Srcs/common/CMakeLists.txt;C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\CMakeLists.txt;C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\MSVC\Srcs\common\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Building Custom Rule C:/Users/liuzi/Documents/GitHub/HEIF-Utility-CommandLineTool/Srcs/common/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
+C:\Software\cmake\bin\cmake.exe -HC:/Users/liuzi/Documents/GitHub/HEIF-Utility-CommandLineTool -BC:/Users/liuzi/Documents/GitHub/HEIF-Utility-CommandLineTool/MSVC --check-stamp-file C:/Users/liuzi/Documents/GitHub/HEIF-Utility-CommandLineTool/MSVC/Srcs/common/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:/Users/liuzi/Documents/GitHub/HEIF-Utility-CommandLineTool/Srcs/common/CMakeLists.txt;C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\CMakeLists.txt;C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\MSVC\Srcs\common\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\auxiliarytypeproperty.cpp"  />
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\avcconfigurationbox.cpp"  />
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\avcdecoderconfigrecord.cpp"  />
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\avcsampleentry.cpp"  />
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\bbox.cpp"  />
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\bitstream.cpp"  />
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\chunkoffsetbox.cpp"  />
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\cleanaperture.cpp"  />
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\codingconstraintsbox.cpp"  />
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\compositionoffsetbox.cpp"  />
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\compositiontodecodebox.cpp"  />
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\datainformationbox.cpp"  />
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\datareferencebox.cpp"  />
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\decodepts.cpp"  />
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\editbox.cpp"  />
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\entitytogroupbox.cpp"  />
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\filetypebox.cpp"  />
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\fourccint.cpp"  />
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\fullbox.cpp"  />
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\groupslistbox.cpp"  />
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\handlerbox.cpp"  />
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\hevcconfigurationbox.cpp"  />
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\hevcdecoderconfigrecord.cpp"  />
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\hevcsampleentry.cpp"  />
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\idspace.cpp"  />
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\imagemirror.cpp"  />
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\imagespatialextentsproperty.cpp"  />
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\imagerotation.cpp"  />
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\imagerelativelocationproperty.cpp"  />
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\imagegrid.cpp"  />
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\imageoverlay.cpp"  />
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\itemdatabox.cpp"  />
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\iteminfobox.cpp"  />
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\itemlocationbox.cpp"  />
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\itempropertiesbox.cpp"  />
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\itempropertyassociation.cpp"  />
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\itempropertycontainer.cpp"  />
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\itemprotectionbox.cpp"  />
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\itemreferencebox.cpp"  />
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\layeredhevcconfigurationitemproperty.cpp"  />
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\layerselectorproperty.cpp"  />
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\lhevcdecoderconfigrecord.cpp"  />
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\log.cpp"  />
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\mediabox.cpp"  />
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\mediadatabox.cpp"  />
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\mediaheaderbox.cpp"  />
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\mediainformationbox.cpp"  />
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\metabox.cpp"  />
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\moviebox.cpp"  />
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\movieheaderbox.cpp"  />
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\operatingpointsinformation.cpp"  />
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\primaryitembox.cpp"  />
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\protectionschemeinfobox.cpp"  />
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\sampledescriptionbox.cpp"  />
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\sampleentrybox.cpp"  />
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\samplesizebox.cpp"  />
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\sampletablebox.cpp"  />
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\sampletochunkbox.cpp"  />
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\sampletogroupbox.cpp"  />
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\samplegroupdescriptionbox.cpp"  />
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\samplegroupentry.cpp"  />
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\syncsamplebox.cpp"  />
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\targetolsproperty.cpp"  />
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\timetosamplebox.cpp"  />
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\trackbox.cpp"  />
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\trackheaderbox.cpp"  />
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\trackreferencebox.cpp"  />
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\trackreferencetypebox.cpp"  />
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\videomediaheaderbox.cpp"  />
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\visualsampleentrybox.cpp"  />
+    <ClInclude Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\androidhacks.hpp" />
+    <ClInclude Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\avccommondefs.hpp" />
+    <ClInclude Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\hevccommondefs.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\MSVC\Srcs\parser\avcparser\avcparser.vcxproj">
+      <Project>{A55AFBAB-6B3C-3EE9-865C-5D888C5C97F9}</Project>
+      <Name>avcparser</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

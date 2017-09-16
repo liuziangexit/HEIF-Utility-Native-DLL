@@ -1,0 +1,109 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\writer\auxiliaryimagewriter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\writer\context.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\writer\datastore.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\writer\deriveditemmediawriter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\writer\editwriter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\writer\entitygroupwriter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\writer\filemaker.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\writer\filewriter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\writer\ftypwriter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\writer\imagemasterwriter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\writer\imagemediawriter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\writer\imagethumbswriter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\writer\layerimagewriter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\writer\metaboxwriter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\writer\metadatamediawriter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\writer\metadatawriter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\writer\metaderivedimagewriter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\writer\metapropertywriter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\writer\metawriter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\writer\moovwriter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\writer\primaryitemwriter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\writer\refsgroup.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\writer\rootmetaimagewriter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\writer\samplegroup.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\writer\services.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\writer\timeutility.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\writer\timewriter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\writer\trackaltrepwriter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\writer\trackmasterwriter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\writer\trackthumbswriter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\writer\trackwriter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\writer\trefwriter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\writer\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{C967B71C-9535-396E-B93E-81037097EF46}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

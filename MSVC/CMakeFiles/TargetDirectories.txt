@@ -1,0 +1,9 @@
+C:/Users/liuzi/Documents/GitHub/HEIF-Utility-CommandLineTool/MSVC/CMakeFiles/ALL_BUILD.dir
+C:/Users/liuzi/Documents/GitHub/HEIF-Utility-CommandLineTool/MSVC/CMakeFiles/ZERO_CHECK.dir
+C:/Users/liuzi/Documents/GitHub/HEIF-Utility-CommandLineTool/MSVC/Srcs/common/CMakeFiles/common.dir
+C:/Users/liuzi/Documents/GitHub/HEIF-Utility-CommandLineTool/MSVC/Srcs/jsonlib/CMakeFiles/json.dir
+C:/Users/liuzi/Documents/GitHub/HEIF-Utility-CommandLineTool/MSVC/Srcs/parser/avcparser/CMakeFiles/avcparser.dir
+C:/Users/liuzi/Documents/GitHub/HEIF-Utility-CommandLineTool/MSVC/Srcs/parser/h265parser/CMakeFiles/h265parser.dir
+C:/Users/liuzi/Documents/GitHub/HEIF-Utility-CommandLineTool/MSVC/Srcs/reader/CMakeFiles/heifreader.dir
+C:/Users/liuzi/Documents/GitHub/HEIF-Utility-CommandLineTool/MSVC/Srcs/writer/CMakeFiles/heifwriter.dir
+C:/Users/liuzi/Documents/GitHub/HEIF-Utility-CommandLineTool/MSVC/Srcs/HUD/CMakeFiles/HUD.dir

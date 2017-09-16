@@ -1,14 +1,19 @@
 #include "hevcimagefilereader.cpp"
 #include "log.hpp"
 
-#include <iostream>
+#include <opencv2/core/core.hpp>
+#include <opencv2/highgui/highgui.hpp>
+#include <opencv2/imgproc.hpp>
+#include <opencv2\core\core_c.h>
+#include <opencv2\opencv.hpp>
+
 #include <sstream>
-#include <conio.h>
 
 #include "liuzianglib/liuzianglib.h"
 #include "liuzianglib/DC_STR.h"
 #include "liuzianglib/DC_File.h"
 #include "liuzianglib/DC_jsonBuilder.h"
+
 
 struct heifdata {
 	heifdata() = default;
@@ -144,9 +149,10 @@ bool read_heif_tiles(heifdata& readto, HevcImageFileReader& reader, const uint32
 	}
 }
 
-heifdata read_heif(const std::string& filename) {
+heifdata read_heif(const std::string& heic_bin) {
 	HevcImageFileReader reader;
-	reader.initialize(filename);
+	std::istringstream iss(heic_bin);
+	reader.initialize(iss);
 
 	heifdata returnthis;
 
@@ -174,90 +180,160 @@ inline std::string get_tile_str(const HevcImageFileReader::DataVector& tile, con
 	return paramset + std::string(reinterpret_cast<const char*>(tile.data()), tile.size());
 }
 
-inline bool write_heif_as_GenericFormat_AllImage(const std::string& filename, const heifdata& datatowrite, const std::string& format, const std::string& startup_path)noexcept {
+bool write_hevc_bitstream(const std::string& filename, const heifdata& data)noexcept {
 	try {
-		uint32_t index = 0;
-		for (const auto& p : datatowrite.tiles) {
-			if (!DC::File::write<DC::File::binary>(filename + DC::STR::toString(index) + ".temp", get_tile_str(p, datatowrite.paramset)))
-				return false;
-			system((std::string("ffmpeg -loglevel panic -y -i ") + "\"" + filename + DC::STR::toString(index) + ".temp\"" + " \"" + filename + DC::STR::toString(index) + "." + "png\"").c_str());
-			DC::File::del(filename + DC::STR::toString(index) + ".temp");
-			++index;
-		}
-		return true;
+		std::string str;
+		uint32_t reserve_to = data.paramset.size()*data.tiles.size();
+		for (const auto& p : data.tiles)
+			reserve_to += p.size();
+		str.reserve(reserve_to + 128);//直接reserve到reserve_to的时候发现循环的时候还是经历了一次reserve，所以不如多分配一点避免循环中reserve
+		
+		for (const auto& p : data.tiles)
+			str += get_tile_str(p, data.paramset);
+
+		return DC::File::write<DC::File::binary>(filename, str);
 	}
 	catch (...) {
 		return false;
 	}
 }
 
-inline bool clear_265_temp_files(const std::string& filename, const heifdata& datatowrite, const std::string& format)noexcept {
+std::vector<cv::Mat> read_hevc_bitstream_to_mat_vector(const std::string& filename)noexcept {
 	try {
-		uint32_t index = 0;
-		for (const auto& p : datatowrite.tiles) {
-			DC::File::del(filename + DC::STR::toString(index) + "." + "png");
-			++index;
+		cv::VideoCapture vcap(filename);
+		vcap.set(CV_CAP_PROP_FOURCC, CV_FOURCC('H', 'E', 'V', 'C'));
+		if (!vcap.isOpened())
+			throw std::exception("cv::VideoCapture::isOpened returned false");
+
+		std::vector<cv::Mat> returnvalue;
+		cv::Mat frame;
+		returnvalue.reserve(48);
+
+		while (true) {
+			if (!vcap.read(frame))
+				break;
+			returnvalue.push_back(frame.clone());
 		}
-		return true;
+
+		return returnvalue;
 	}
 	catch (...) {
-		return false;
+		return std::vector<cv::Mat>();
 	}
 }
 
-int main(int argc, char *argv[]) {
-	//iOS-11 xxx.HEIC outputfilename outputformat jsonoutputfilename jpgquality
-	//convert all image inside xxx.HEIC to Generic Format, and save to file
-	//example: HUD iOS-11 IMG_4228.HEIC out jpg imageinfo.json 50
+cv::Mat hconcatLine(const std::vector<cv::Mat>& images) {
+	cv::Mat rv;
+	cv::hconcat(images.at(0), images.at(1), rv);
+	for (uint32_t i = 2; i < images.size(); i++)
+		cv::hconcat(rv, images.at(i), rv);
+	return rv;
+}
 
-	//view xxx.HEIC
-	//show HEIF file info
-	//example: HUD view IMG_4228.HEIC
+cv::Mat vconcatLine(const std::vector<cv::Mat>& images) {
+	cv::Mat rv;
+	cv::vconcat(images.at(0), images.at(1), rv);
+	for (uint32_t i = 2; i < images.size(); i++)
+		cv::vconcat(rv, images.at(i), rv);
+	return rv;
+}
 
-	auto cmd_args(DC::GetCommandLineParameters(argc, argv));
-	
-	auto startup_path = DC::STR::getSub(cmd_args.at(0), -1, *DC::STR::find(cmd_args.at(0), "\\").getplace_ref().rbegin() + 1);
+cv::Mat resize(const cv::Mat& image, const heifdata& info) {
+	IplImage img(image);
+	cvSetImageROI(&img, CvRect(0, 0, info.width, info.height));
+	return cv::Mat(cv::cvarrToMat(&img, true));
+}
 
-	cmd_args.at(3) = startup_path + cmd_args.at(3);
-	//cmd_args.at(5) = startup_path + cmd_args.at(5);
+void rotate(cv::Mat& image, const heifdata& info) {
+	if (info.rotation % 90 != 0 || info.rotation == 0)
+		return;
 
+	auto rotate90 = [&image] {
+		cv::transpose(image, image);
+		cv::flip(image, image, 0);
+	};
+
+	auto rtime(info.rotation / 90);
+	for (int i = 0; i < rtime; i++)
+		rotate90();
+}
+
+extern "C" __declspec(dllexport) void heif2jpg(const char heif_bin[], int input_buffer_size, const int jpg_quality, char output_buffer[], int output_buffer_size) {
+	constexpr const char* temp_filename = "temp_bitstream.hevc";
+	auto copy_to_output_buffer = [&output_buffer, &output_buffer_size](const std::string& source) {
+		if (output_buffer_size < source.size())
+			return false;
+
+		memset(output_buffer, 0, output_buffer_size);
+		memcpy(output_buffer, source.data(), source.size());
+		return true;
+	};
+
+	//拿到heic文件二进制数据
+	std::string heif_bin_str(heif_bin, input_buffer_size);
+
+	Log::setLevel(Log::LogLevel::ERROR);
 	heifdata data;
 
+	//解析到data里
 	try {
-		Log::setLevel(Log::LogLevel::ERROR);
-		printf("load file...");
-		data = read_heif(cmd_args.at(2));
-		printf("ok\n");
+		data = read_heif(heif_bin_str);
 	}
-	catch (std::exception& ex) {
-		std::cout << "an uncatched exception has been throw: " << ex.what();
-		return 0;
-	}
-	
-	if (cmd_args[1] == "view") {
-		std::cout << "\n\nImage Info\n" << heif_info_str(data) << "\n";
-		return 0;
+	catch (...) {
+		copy_to_output_buffer("error");
+		return;
 	}
 
-	if (cmd_args[1] == "iOS-11") {
-		printf("write temp files...");
-		if (write_heif_as_GenericFormat_AllImage(cmd_args.at(3), data, cmd_args.at(4), startup_path))
-			printf("ok\n");
-		else {
-			printf("err\n");
-			return 0;
+	//把heic文件里所有的图块转成hevc裸流写到临时文件里（文件名由temp_filename指定）
+	if (!write_hevc_bitstream(temp_filename, data)) {
+		copy_to_output_buffer("error");
+		return;
+	}
+
+	//读取临时文件并提取中其中所有的帧(图块)
+	auto mat_vec = read_hevc_bitstream_to_mat_vector(temp_filename);
+	DC::File::del(temp_filename);
+	if (mat_vec.empty()) {
+		copy_to_output_buffer("error");
+		return;
+	}
+
+	std::string encoded_jpg;
+	try {
+		//拼合
+		auto getLineIndex = [&data](const uint32_t& line) {
+			return line * data.cols;
+		};
+		std::vector<cv::Mat> lines, temp;
+		temp.reserve(data.cols);
+		lines.reserve(data.rows);
+
+		for (uint32_t i = 0; i < data.rows; i++) {
+			for (uint32_t u = getLineIndex(i); u < getLineIndex(i) + data.cols; u++)
+				temp.push_back(mat_vec.at(u));
+			lines.push_back(hconcatLine(temp));
+			temp.clear();
 		}
-		printf("blending files...");
-		if (write_info(cmd_args.at(5), data, cmd_args))
-			system((std::string("HBT ") + "\"" + startup_path + cmd_args.at(5) + "\"").c_str());
-		printf("ok\n");
-		printf("clear temp files...");
-		clear_265_temp_files(cmd_args.at(3), data, cmd_args.at(4));
-		DC::File::del(cmd_args.at(5));
-		printf("ok\n");
 
-		return 0;
+		//剪裁
+		auto fullImage(resize(vconcatLine(lines), data));
+
+		//旋转
+		rotate(fullImage, data);
+
+		//编码为jpg
+		std::vector<uint8_t> encoded_buf;
+		if (!cv::imencode(".jpg", fullImage, encoded_buf, { CV_IMWRITE_JPEG_QUALITY, jpg_quality })) {
+			copy_to_output_buffer("error");
+			return;
+		}
+		encoded_jpg = std::string(encoded_buf.begin(), encoded_buf.end());
+	}
+	catch (...) {
+		copy_to_output_buffer("error");
+		return;
 	}
 
-	return 0;
+	if (!copy_to_output_buffer(encoded_jpg))
+		copy_to_output_buffer("buffer to small");
 }
