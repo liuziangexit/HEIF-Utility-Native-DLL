@@ -14,7 +14,6 @@
 #include "liuzianglib/DC_File.h"
 #include "liuzianglib/DC_jsonBuilder.h"
 
-
 struct heifdata {
 	heifdata() = default;
 
@@ -57,32 +56,6 @@ std::string heif_info_str(const heifdata& info)noexcept {
 	rv += DC::STR::toString(info.tiles.size());
 
 	return rv;
-}
-
-bool write_info(const std::string& filename, const heifdata& info,const DC::PARS_V& cmd_args)noexcept {
-	try {
-		DC::Web::jsonBuilder::object jsobj;
-
-		jsobj.add("filename", DC::Web::jsonBuilder::value(cmd_args.at(3)));
-		jsobj.add("format", DC::Web::jsonBuilder::value("png"));
-		jsobj.add("indexBegin", DC::Web::jsonBuilder::number(0));
-		jsobj.add("number", DC::Web::jsonBuilder::number((int32_t)info.tiles.size()));
-		jsobj.add("outputfilename", DC::Web::jsonBuilder::value(cmd_args.at(3)));
-		jsobj.add("outputformat", DC::Web::jsonBuilder::value(cmd_args.at(4)));
-		jsobj.add("jpgquality", DC::Web::jsonBuilder::number(DC::STR::toType<int>(cmd_args.at(6))));
-
-		jsobj.add("width", DC::Web::jsonBuilder::number((int32_t)info.width));
-		jsobj.add("height", DC::Web::jsonBuilder::number((int32_t)info.height));
-		jsobj.add("rows", DC::Web::jsonBuilder::number((int32_t)info.rows));
-		jsobj.add("cols", DC::Web::jsonBuilder::number((int32_t)info.cols));
-		jsobj.add("rotation", DC::Web::jsonBuilder::number((int32_t)info.rotation));
-		jsobj.add("tiles", DC::Web::jsonBuilder::number((int32_t)info.tiles.size()));
-
-		return DC::File::write(filename, jsobj.toString());
-	}
-	catch (...) {
-		return false;
-	}
 }
 
 bool read_heif_info(heifdata& readto, HevcImageFileReader& reader, const uint32_t& contextId)noexcept {
@@ -292,7 +265,7 @@ extern "C" __declspec(dllexport) void heif2jpg(const char heif_bin[], int input_
 
 	//读取临时文件并提取中其中所有的帧(图块)
 	auto mat_vec = read_hevc_bitstream_to_mat_vector(temp_filename);
-	DC::File::del(temp_filename);
+	//DC::File::del(temp_filename);
 	if (mat_vec.empty()) {
 		copy_to_output_buffer("error");
 		return;
