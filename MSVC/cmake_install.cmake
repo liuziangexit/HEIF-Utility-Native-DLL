@@ -1,4 +1,4 @@
-# Install script for directory: C:/Users/liuzi/Documents/GitHub/HEIF-Utility-CommandLineTool
+# Install script for directory: C:/Users/liuzi/Documents/GitHub/HEIF-Utility-Native-DLL
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -29,7 +29,7 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("C:/Users/liuzi/Documents/GitHub/HEIF-Utility-CommandLineTool/MSVC/Srcs/cmake_install.cmake")
+  include("C:/Users/liuzi/Documents/GitHub/HEIF-Utility-Native-DLL/MSVC/Srcs/cmake_install.cmake")
 
 endif()
 
@@ -41,5 +41,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "C:/Users/liuzi/Documents/GitHub/HEIF-Utility-CommandLineTool/MSVC/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "C:/Users/liuzi/Documents/GitHub/HEIF-Utility-Native-DLL/MSVC/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

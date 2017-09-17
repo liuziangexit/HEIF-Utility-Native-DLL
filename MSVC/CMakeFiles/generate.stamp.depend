@@ -1,8 +1,8 @@
 # CMake generation dependency list for this directory.
-C:/Users/liuzi/Documents/GitHub/HEIF-Utility-CommandLineTool/CMakeLists.txt
+C:/Users/liuzi/Documents/GitHub/HEIF-Utility-Native-DLL/CMakeLists.txt
 C:/Software/cmake/share/cmake-3.9/Modules/CMakeDetermineSystem.cmake
 C:/Software/cmake/share/cmake-3.9/Modules/CMakeSystem.cmake.in
-C:/Users/liuzi/Documents/GitHub/HEIF-Utility-CommandLineTool/MSVC/CMakeFiles/3.9.2/CMakeSystem.cmake
+C:/Users/liuzi/Documents/GitHub/HEIF-Utility-Native-DLL/MSVC/CMakeFiles/3.9.2/CMakeSystem.cmake
 C:/Software/cmake/share/cmake-3.9/Modules/CMakeSystemSpecificInitialize.cmake
 C:/Software/cmake/share/cmake-3.9/Modules/CMakeDetermineCCompiler.cmake
 C:/Software/cmake/share/cmake-3.9/Modules/CMakeDetermineCompiler.cmake
@@ -46,7 +46,7 @@ C:/Software/cmake/share/cmake-3.9/Modules/Compiler/IBMCPP-C-DetermineVersionInte
 C:/Software/cmake/share/cmake-3.9/Modules/CompilerId/VS-10.vcxproj.in
 C:/Software/cmake/share/cmake-3.9/Modules/CMakeFindBinUtils.cmake
 C:/Software/cmake/share/cmake-3.9/Modules/CMakeCCompiler.cmake.in
-C:/Users/liuzi/Documents/GitHub/HEIF-Utility-CommandLineTool/MSVC/CMakeFiles/3.9.2/CMakeCCompiler.cmake
+C:/Users/liuzi/Documents/GitHub/HEIF-Utility-Native-DLL/MSVC/CMakeFiles/3.9.2/CMakeCCompiler.cmake
 C:/Software/cmake/share/cmake-3.9/Modules/CMakeDetermineCXXCompiler.cmake
 C:/Software/cmake/share/cmake-3.9/Modules/CMakeDetermineCompiler.cmake
 C:/Software/cmake/share/cmake-3.9/Modules/Platform/Windows-Determine-CXX.cmake
@@ -88,7 +88,7 @@ C:/Software/cmake/share/cmake-3.9/Modules/Compiler/IBMCPP-CXX-DetermineVersionIn
 C:/Software/cmake/share/cmake-3.9/Modules/CompilerId/VS-10.vcxproj.in
 C:/Software/cmake/share/cmake-3.9/Modules/CMakeFindBinUtils.cmake
 C:/Software/cmake/share/cmake-3.9/Modules/CMakeCXXCompiler.cmake.in
-C:/Users/liuzi/Documents/GitHub/HEIF-Utility-CommandLineTool/MSVC/CMakeFiles/3.9.2/CMakeCXXCompiler.cmake
+C:/Users/liuzi/Documents/GitHub/HEIF-Utility-Native-DLL/MSVC/CMakeFiles/3.9.2/CMakeCXXCompiler.cmake
 C:/Software/cmake/share/cmake-3.9/Modules/CMakeSystemSpecificInformation.cmake
 C:/Software/cmake/share/cmake-3.9/Modules/CMakeGenericSystem.cmake
 C:/Software/cmake/share/cmake-3.9/Modules/Platform/Windows.cmake
@@ -99,7 +99,7 @@ C:/Software/cmake/share/cmake-3.9/Modules/Platform/Windows-MSVC-C.cmake
 C:/Software/cmake/share/cmake-3.9/Modules/Platform/Windows-MSVC.cmake
 C:/Software/cmake/share/cmake-3.9/Modules/CMakeDetermineRCCompiler.cmake
 C:/Software/cmake/share/cmake-3.9/Modules/CMakeRCCompiler.cmake.in
-C:/Users/liuzi/Documents/GitHub/HEIF-Utility-CommandLineTool/MSVC/CMakeFiles/3.9.2/CMakeRCCompiler.cmake
+C:/Users/liuzi/Documents/GitHub/HEIF-Utility-Native-DLL/MSVC/CMakeFiles/3.9.2/CMakeRCCompiler.cmake
 C:/Software/cmake/share/cmake-3.9/Modules/CMakeRCInformation.cmake
 C:/Software/cmake/share/cmake-3.9/Modules/CMakeTestRCCompiler.cmake
 C:/Software/cmake/share/cmake-3.9/Modules/CMakeCommonLanguageInclude.cmake
@@ -110,7 +110,7 @@ C:/Software/cmake/share/cmake-3.9/Modules/CMakeParseImplicitLinkInfo.cmake
 C:/Software/cmake/share/cmake-3.9/Modules/CMakeCCompilerABI.c
 C:/Software/cmake/share/cmake-3.9/Modules/CMakeDetermineCompileFeatures.cmake
 C:/Software/cmake/share/cmake-3.9/Modules/CMakeCCompiler.cmake.in
-C:/Users/liuzi/Documents/GitHub/HEIF-Utility-CommandLineTool/MSVC/CMakeFiles/3.9.2/CMakeCCompiler.cmake
+C:/Users/liuzi/Documents/GitHub/HEIF-Utility-Native-DLL/MSVC/CMakeFiles/3.9.2/CMakeCCompiler.cmake
 C:/Software/cmake/share/cmake-3.9/Modules/CMakeCXXInformation.cmake
 C:/Software/cmake/share/cmake-3.9/Modules/CMakeLanguageInformation.cmake
 C:/Software/cmake/share/cmake-3.9/Modules/Compiler/MSVC-CXX.cmake
@@ -126,16 +126,16 @@ C:/Software/cmake/share/cmake-3.9/Modules/CMakeCXXCompilerABI.cpp
 C:/Software/cmake/share/cmake-3.9/Modules/CMakeDetermineCompileFeatures.cmake
 C:/Software/cmake/share/cmake-3.9/Modules/Internal/FeatureTesting.cmake
 C:/Software/cmake/share/cmake-3.9/Modules/Compiler/MSVC-CXX-FeatureTests.cmake
-C:/Users/liuzi/Documents/GitHub/HEIF-Utility-CommandLineTool/MSVC/CMakeFiles/feature_tests.cxx
+C:/Users/liuzi/Documents/GitHub/HEIF-Utility-Native-DLL/MSVC/CMakeFiles/feature_tests.cxx
 C:/Software/cmake/share/cmake-3.9/Modules/Compiler/MSVC-CXX-FeatureTests.cmake
-C:/Users/liuzi/Documents/GitHub/HEIF-Utility-CommandLineTool/MSVC/CMakeFiles/feature_tests.cxx
+C:/Users/liuzi/Documents/GitHub/HEIF-Utility-Native-DLL/MSVC/CMakeFiles/feature_tests.cxx
 C:/Software/cmake/share/cmake-3.9/Modules/Compiler/MSVC-CXX-FeatureTests.cmake
-C:/Users/liuzi/Documents/GitHub/HEIF-Utility-CommandLineTool/MSVC/CMakeFiles/feature_tests.cxx
+C:/Users/liuzi/Documents/GitHub/HEIF-Utility-Native-DLL/MSVC/CMakeFiles/feature_tests.cxx
 C:/Software/cmake/share/cmake-3.9/Modules/Compiler/MSVC-CXX-FeatureTests.cmake
-C:/Users/liuzi/Documents/GitHub/HEIF-Utility-CommandLineTool/MSVC/CMakeFiles/feature_tests.cxx
+C:/Users/liuzi/Documents/GitHub/HEIF-Utility-Native-DLL/MSVC/CMakeFiles/feature_tests.cxx
 C:/Software/cmake/share/cmake-3.9/Modules/CMakeCXXCompiler.cmake.in
-C:/Users/liuzi/Documents/GitHub/HEIF-Utility-CommandLineTool/MSVC/CMakeFiles/3.9.2/CMakeCXXCompiler.cmake
-C:/Users/liuzi/Documents/GitHub/HEIF-Utility-CommandLineTool/Srcs/buildinfo/buildinfo.hpp.in
+C:/Users/liuzi/Documents/GitHub/HEIF-Utility-Native-DLL/MSVC/CMakeFiles/3.9.2/CMakeCXXCompiler.cmake
+C:/Users/liuzi/Documents/GitHub/HEIF-Utility-Native-DLL/Srcs/buildinfo/buildinfo.hpp.in
 C:/Software/cmake/share/cmake-3.9/Modules/CheckCXXCompilerFlag.cmake
 C:/Software/cmake/share/cmake-3.9/Modules/CheckCXXSourceCompiles.cmake
 C:/Software/cmake/share/cmake-3.9/Modules/CMakeCheckCompilerFlagCommonPatterns.cmake

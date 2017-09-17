@@ -1,237 +1,237 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\auxiliarytypeproperty.cpp">
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-Native-DLL\Srcs\common\auxiliarytypeproperty.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\avcconfigurationbox.cpp">
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-Native-DLL\Srcs\common\avcconfigurationbox.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\avcdecoderconfigrecord.cpp">
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-Native-DLL\Srcs\common\avcdecoderconfigrecord.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\avcsampleentry.cpp">
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-Native-DLL\Srcs\common\avcsampleentry.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\bbox.cpp">
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-Native-DLL\Srcs\common\bbox.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\bitstream.cpp">
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-Native-DLL\Srcs\common\bitstream.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\chunkoffsetbox.cpp">
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-Native-DLL\Srcs\common\chunkoffsetbox.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\cleanaperture.cpp">
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-Native-DLL\Srcs\common\cleanaperture.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\codingconstraintsbox.cpp">
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-Native-DLL\Srcs\common\codingconstraintsbox.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\compositionoffsetbox.cpp">
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-Native-DLL\Srcs\common\compositionoffsetbox.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\compositiontodecodebox.cpp">
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-Native-DLL\Srcs\common\compositiontodecodebox.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\datainformationbox.cpp">
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-Native-DLL\Srcs\common\datainformationbox.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\datareferencebox.cpp">
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-Native-DLL\Srcs\common\datareferencebox.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\decodepts.cpp">
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-Native-DLL\Srcs\common\decodepts.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\editbox.cpp">
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-Native-DLL\Srcs\common\editbox.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\entitytogroupbox.cpp">
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-Native-DLL\Srcs\common\entitytogroupbox.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\filetypebox.cpp">
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-Native-DLL\Srcs\common\filetypebox.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\fourccint.cpp">
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-Native-DLL\Srcs\common\fourccint.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\fullbox.cpp">
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-Native-DLL\Srcs\common\fullbox.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\groupslistbox.cpp">
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-Native-DLL\Srcs\common\groupslistbox.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\handlerbox.cpp">
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-Native-DLL\Srcs\common\handlerbox.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\hevcconfigurationbox.cpp">
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-Native-DLL\Srcs\common\hevcconfigurationbox.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\hevcdecoderconfigrecord.cpp">
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-Native-DLL\Srcs\common\hevcdecoderconfigrecord.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\hevcsampleentry.cpp">
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-Native-DLL\Srcs\common\hevcsampleentry.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\idspace.cpp">
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-Native-DLL\Srcs\common\idspace.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\imagemirror.cpp">
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-Native-DLL\Srcs\common\imagemirror.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\imagespatialextentsproperty.cpp">
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-Native-DLL\Srcs\common\imagespatialextentsproperty.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\imagerotation.cpp">
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-Native-DLL\Srcs\common\imagerotation.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\imagerelativelocationproperty.cpp">
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-Native-DLL\Srcs\common\imagerelativelocationproperty.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\imagegrid.cpp">
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-Native-DLL\Srcs\common\imagegrid.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\imageoverlay.cpp">
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-Native-DLL\Srcs\common\imageoverlay.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\itemdatabox.cpp">
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-Native-DLL\Srcs\common\itemdatabox.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\iteminfobox.cpp">
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-Native-DLL\Srcs\common\iteminfobox.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\itemlocationbox.cpp">
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-Native-DLL\Srcs\common\itemlocationbox.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\itempropertiesbox.cpp">
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-Native-DLL\Srcs\common\itempropertiesbox.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\itempropertyassociation.cpp">
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-Native-DLL\Srcs\common\itempropertyassociation.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\itempropertycontainer.cpp">
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-Native-DLL\Srcs\common\itempropertycontainer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\itemprotectionbox.cpp">
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-Native-DLL\Srcs\common\itemprotectionbox.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\itemreferencebox.cpp">
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-Native-DLL\Srcs\common\itemreferencebox.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\layeredhevcconfigurationitemproperty.cpp">
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-Native-DLL\Srcs\common\layeredhevcconfigurationitemproperty.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\layerselectorproperty.cpp">
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-Native-DLL\Srcs\common\layerselectorproperty.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\lhevcdecoderconfigrecord.cpp">
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-Native-DLL\Srcs\common\lhevcdecoderconfigrecord.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\log.cpp">
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-Native-DLL\Srcs\common\log.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\mediabox.cpp">
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-Native-DLL\Srcs\common\mediabox.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\mediadatabox.cpp">
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-Native-DLL\Srcs\common\mediadatabox.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\mediaheaderbox.cpp">
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-Native-DLL\Srcs\common\mediaheaderbox.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\mediainformationbox.cpp">
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-Native-DLL\Srcs\common\mediainformationbox.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\metabox.cpp">
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-Native-DLL\Srcs\common\metabox.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\moviebox.cpp">
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-Native-DLL\Srcs\common\moviebox.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\movieheaderbox.cpp">
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-Native-DLL\Srcs\common\movieheaderbox.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\operatingpointsinformation.cpp">
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-Native-DLL\Srcs\common\operatingpointsinformation.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\primaryitembox.cpp">
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-Native-DLL\Srcs\common\primaryitembox.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\protectionschemeinfobox.cpp">
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-Native-DLL\Srcs\common\protectionschemeinfobox.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\sampledescriptionbox.cpp">
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-Native-DLL\Srcs\common\sampledescriptionbox.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\sampleentrybox.cpp">
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-Native-DLL\Srcs\common\sampleentrybox.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\samplesizebox.cpp">
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-Native-DLL\Srcs\common\samplesizebox.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\sampletablebox.cpp">
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-Native-DLL\Srcs\common\sampletablebox.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\sampletochunkbox.cpp">
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-Native-DLL\Srcs\common\sampletochunkbox.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\sampletogroupbox.cpp">
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-Native-DLL\Srcs\common\sampletogroupbox.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\samplegroupdescriptionbox.cpp">
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-Native-DLL\Srcs\common\samplegroupdescriptionbox.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\samplegroupentry.cpp">
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-Native-DLL\Srcs\common\samplegroupentry.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\syncsamplebox.cpp">
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-Native-DLL\Srcs\common\syncsamplebox.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\targetolsproperty.cpp">
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-Native-DLL\Srcs\common\targetolsproperty.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\timetosamplebox.cpp">
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-Native-DLL\Srcs\common\timetosamplebox.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\trackbox.cpp">
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-Native-DLL\Srcs\common\trackbox.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\trackheaderbox.cpp">
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-Native-DLL\Srcs\common\trackheaderbox.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\trackreferencebox.cpp">
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-Native-DLL\Srcs\common\trackreferencebox.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\trackreferencetypebox.cpp">
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-Native-DLL\Srcs\common\trackreferencetypebox.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\videomediaheaderbox.cpp">
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-Native-DLL\Srcs\common\videomediaheaderbox.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\visualsampleentrybox.cpp">
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-Native-DLL\Srcs\common\visualsampleentrybox.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\androidhacks.hpp">
+    <ClInclude Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-Native-DLL\Srcs\common\androidhacks.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\avccommondefs.hpp">
+    <ClInclude Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-Native-DLL\Srcs\common\avccommondefs.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\hevccommondefs.hpp">
+    <ClInclude Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-Native-DLL\Srcs\common\hevccommondefs.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\common\CMakeLists.txt" />
+    <CustomBuild Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-Native-DLL\Srcs\common\CMakeLists.txt" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source Files">
-      <UniqueIdentifier>{C967B71C-9535-396E-B93E-81037097EF46}</UniqueIdentifier>
+      <UniqueIdentifier>{432E8E60-90D2-371D-8E53-86EE1AA4ED51}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files">
-      <UniqueIdentifier>{4C79F92E-2E21-3E26-9D4C-FEC92F785B56}</UniqueIdentifier>
+      <UniqueIdentifier>{2EF22557-BE05-3D09-8142-DD796FF1BA41}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -1,4 +1,4 @@
-# Install script for directory: C:/Users/liuzi/Documents/GitHub/HEIF-Utility-CommandLineTool/Srcs/common
+# Install script for directory: C:/Users/liuzi/Documents/GitHub/HEIF-Utility-Native-DLL/Srcs/common
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

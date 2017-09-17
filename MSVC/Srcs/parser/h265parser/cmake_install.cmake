@@ -1,4 +1,4 @@
-# Install script for directory: C:/Users/liuzi/Documents/GitHub/HEIF-Utility-CommandLineTool/Srcs/parser/h265parser
+# Install script for directory: C:/Users/liuzi/Documents/GitHub/HEIF-Utility-Native-DLL/Srcs/parser/h265parser
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

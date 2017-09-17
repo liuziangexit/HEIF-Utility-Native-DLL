@@ -1,4 +1,4 @@
-# Install script for directory: C:/Users/liuzi/Documents/GitHub/HEIF-Utility-CommandLineTool/Srcs
+# Install script for directory: C:/Users/liuzi/Documents/GitHub/HEIF-Utility-Native-DLL/Srcs
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -29,12 +29,12 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("C:/Users/liuzi/Documents/GitHub/HEIF-Utility-CommandLineTool/MSVC/Srcs/common/cmake_install.cmake")
-  include("C:/Users/liuzi/Documents/GitHub/HEIF-Utility-CommandLineTool/MSVC/Srcs/jsonlib/cmake_install.cmake")
-  include("C:/Users/liuzi/Documents/GitHub/HEIF-Utility-CommandLineTool/MSVC/Srcs/parser/cmake_install.cmake")
-  include("C:/Users/liuzi/Documents/GitHub/HEIF-Utility-CommandLineTool/MSVC/Srcs/reader/cmake_install.cmake")
-  include("C:/Users/liuzi/Documents/GitHub/HEIF-Utility-CommandLineTool/MSVC/Srcs/writer/cmake_install.cmake")
-  include("C:/Users/liuzi/Documents/GitHub/HEIF-Utility-CommandLineTool/MSVC/Srcs/HUD/cmake_install.cmake")
+  include("C:/Users/liuzi/Documents/GitHub/HEIF-Utility-Native-DLL/MSVC/Srcs/common/cmake_install.cmake")
+  include("C:/Users/liuzi/Documents/GitHub/HEIF-Utility-Native-DLL/MSVC/Srcs/jsonlib/cmake_install.cmake")
+  include("C:/Users/liuzi/Documents/GitHub/HEIF-Utility-Native-DLL/MSVC/Srcs/parser/cmake_install.cmake")
+  include("C:/Users/liuzi/Documents/GitHub/HEIF-Utility-Native-DLL/MSVC/Srcs/reader/cmake_install.cmake")
+  include("C:/Users/liuzi/Documents/GitHub/HEIF-Utility-Native-DLL/MSVC/Srcs/writer/cmake_install.cmake")
+  include("C:/Users/liuzi/Documents/GitHub/HEIF-Utility-Native-DLL/MSVC/Srcs/HUD/cmake_install.cmake")
 
 endif()
 

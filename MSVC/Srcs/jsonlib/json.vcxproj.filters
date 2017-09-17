@@ -1,16 +1,16 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\jsonlib\jsoncpp.cpp">
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-Native-DLL\Srcs\jsonlib\jsoncpp.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\jsonlib\CMakeLists.txt" />
+    <CustomBuild Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-Native-DLL\Srcs\jsonlib\CMakeLists.txt" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source Files">
-      <UniqueIdentifier>{C967B71C-9535-396E-B93E-81037097EF46}</UniqueIdentifier>
+      <UniqueIdentifier>{432E8E60-90D2-371D-8E53-86EE1AA4ED51}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

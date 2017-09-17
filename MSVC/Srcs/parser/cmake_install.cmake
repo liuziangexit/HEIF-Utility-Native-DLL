@@ -1,4 +1,4 @@
-# Install script for directory: C:/Users/liuzi/Documents/GitHub/HEIF-Utility-CommandLineTool/Srcs/parser
+# Install script for directory: C:/Users/liuzi/Documents/GitHub/HEIF-Utility-Native-DLL/Srcs/parser
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -29,8 +29,8 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("C:/Users/liuzi/Documents/GitHub/HEIF-Utility-CommandLineTool/MSVC/Srcs/parser/avcparser/cmake_install.cmake")
-  include("C:/Users/liuzi/Documents/GitHub/HEIF-Utility-CommandLineTool/MSVC/Srcs/parser/h265parser/cmake_install.cmake")
+  include("C:/Users/liuzi/Documents/GitHub/HEIF-Utility-Native-DLL/MSVC/Srcs/parser/avcparser/cmake_install.cmake")
+  include("C:/Users/liuzi/Documents/GitHub/HEIF-Utility-Native-DLL/MSVC/Srcs/parser/h265parser/cmake_install.cmake")
 
 endif()
 

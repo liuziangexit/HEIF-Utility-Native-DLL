@@ -19,7 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{6A408215-95B3-3F14-B7CE-DC274C364885}</ProjectGuid>
+    <ProjectGuid>{C3EE2654-A40B-3F7E-8676-46B2AAB81BE1}</ProjectGuid>
     <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
     <Keyword>Win32Proj</Keyword>
     <Platform>x64</Platform>
@@ -56,19 +56,19 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
     <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\MSVC\Srcs\jsonlib\Debug\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\liuzi\Documents\GitHub\HEIF-Utility-Native-DLL\MSVC\Srcs\jsonlib\Debug\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">json.dir\Debug\</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">json</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.lib</TargetExt>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\MSVC\Srcs\jsonlib\Release\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Users\liuzi\Documents\GitHub\HEIF-Utility-Native-DLL\MSVC\Srcs\jsonlib\Release\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">json.dir\Release\</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">json</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.lib</TargetExt>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\MSVC\Srcs\jsonlib\MinSizeRel\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Users\liuzi\Documents\GitHub\HEIF-Utility-Native-DLL\MSVC\Srcs\jsonlib\MinSizeRel\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">json.dir\MinSizeRel\</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">json</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">.lib</TargetExt>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\MSVC\Srcs\jsonlib\RelWithDebInfo\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Users\liuzi\Documents\GitHub\HEIF-Utility-Native-DLL\MSVC\Srcs\jsonlib\RelWithDebInfo\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">json.dir\RelWithDebInfo\</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">json</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">.lib</TargetExt>
@@ -215,10 +215,10 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <CustomBuild Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\jsonlib\CMakeLists.txt">
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Building Custom Rule C:/Users/liuzi/Documents/GitHub/HEIF-Utility-CommandLineTool/Srcs/jsonlib/CMakeLists.txt</Message>
+    <CustomBuild Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-Native-DLL\Srcs\jsonlib\CMakeLists.txt">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Building Custom Rule C:/Users/liuzi/Documents/GitHub/HEIF-Utility-Native-DLL/Srcs/jsonlib/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
-C:\Software\cmake\bin\cmake.exe -HC:/Users/liuzi/Documents/GitHub/HEIF-Utility-CommandLineTool -BC:/Users/liuzi/Documents/GitHub/HEIF-Utility-CommandLineTool/MSVC --check-stamp-file C:/Users/liuzi/Documents/GitHub/HEIF-Utility-CommandLineTool/MSVC/Srcs/jsonlib/CMakeFiles/generate.stamp
+C:\Software\cmake\bin\cmake.exe -HC:/Users/liuzi/Documents/GitHub/HEIF-Utility-Native-DLL -BC:/Users/liuzi/Documents/GitHub/HEIF-Utility-Native-DLL/MSVC --check-stamp-file C:/Users/liuzi/Documents/GitHub/HEIF-Utility-Native-DLL/MSVC/Srcs/jsonlib/CMakeFiles/generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -226,12 +226,12 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:/Users/liuzi/Documents/GitHub/HEIF-Utility-CommandLineTool/Srcs/jsonlib/CMakeLists.txt;C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\jsonlib\CMakeLists.txt;C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\jsonlib\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\MSVC\Srcs\jsonlib\CMakeFiles\generate.stamp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:/Users/liuzi/Documents/GitHub/HEIF-Utility-Native-DLL/Srcs/jsonlib/CMakeLists.txt;C:\Users\liuzi\Documents\GitHub\HEIF-Utility-Native-DLL\Srcs\jsonlib\CMakeLists.txt;C:\Users\liuzi\Documents\GitHub\HEIF-Utility-Native-DLL\Srcs\jsonlib\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\liuzi\Documents\GitHub\HEIF-Utility-Native-DLL\MSVC\Srcs\jsonlib\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Building Custom Rule C:/Users/liuzi/Documents/GitHub/HEIF-Utility-CommandLineTool/Srcs/jsonlib/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Building Custom Rule C:/Users/liuzi/Documents/GitHub/HEIF-Utility-Native-DLL/Srcs/jsonlib/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
-C:\Software\cmake\bin\cmake.exe -HC:/Users/liuzi/Documents/GitHub/HEIF-Utility-CommandLineTool -BC:/Users/liuzi/Documents/GitHub/HEIF-Utility-CommandLineTool/MSVC --check-stamp-file C:/Users/liuzi/Documents/GitHub/HEIF-Utility-CommandLineTool/MSVC/Srcs/jsonlib/CMakeFiles/generate.stamp
+C:\Software\cmake\bin\cmake.exe -HC:/Users/liuzi/Documents/GitHub/HEIF-Utility-Native-DLL -BC:/Users/liuzi/Documents/GitHub/HEIF-Utility-Native-DLL/MSVC --check-stamp-file C:/Users/liuzi/Documents/GitHub/HEIF-Utility-Native-DLL/MSVC/Srcs/jsonlib/CMakeFiles/generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -239,12 +239,12 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:/Users/liuzi/Documents/GitHub/HEIF-Utility-CommandLineTool/Srcs/jsonlib/CMakeLists.txt;C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\jsonlib\CMakeLists.txt;C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\jsonlib\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\MSVC\Srcs\jsonlib\CMakeFiles\generate.stamp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:/Users/liuzi/Documents/GitHub/HEIF-Utility-Native-DLL/Srcs/jsonlib/CMakeLists.txt;C:\Users\liuzi\Documents\GitHub\HEIF-Utility-Native-DLL\Srcs\jsonlib\CMakeLists.txt;C:\Users\liuzi\Documents\GitHub\HEIF-Utility-Native-DLL\Srcs\jsonlib\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Users\liuzi\Documents\GitHub\HEIF-Utility-Native-DLL\MSVC\Srcs\jsonlib\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Building Custom Rule C:/Users/liuzi/Documents/GitHub/HEIF-Utility-CommandLineTool/Srcs/jsonlib/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Building Custom Rule C:/Users/liuzi/Documents/GitHub/HEIF-Utility-Native-DLL/Srcs/jsonlib/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
-C:\Software\cmake\bin\cmake.exe -HC:/Users/liuzi/Documents/GitHub/HEIF-Utility-CommandLineTool -BC:/Users/liuzi/Documents/GitHub/HEIF-Utility-CommandLineTool/MSVC --check-stamp-file C:/Users/liuzi/Documents/GitHub/HEIF-Utility-CommandLineTool/MSVC/Srcs/jsonlib/CMakeFiles/generate.stamp
+C:\Software\cmake\bin\cmake.exe -HC:/Users/liuzi/Documents/GitHub/HEIF-Utility-Native-DLL -BC:/Users/liuzi/Documents/GitHub/HEIF-Utility-Native-DLL/MSVC --check-stamp-file C:/Users/liuzi/Documents/GitHub/HEIF-Utility-Native-DLL/MSVC/Srcs/jsonlib/CMakeFiles/generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -252,12 +252,12 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:/Users/liuzi/Documents/GitHub/HEIF-Utility-CommandLineTool/Srcs/jsonlib/CMakeLists.txt;C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\jsonlib\CMakeLists.txt;C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\jsonlib\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\MSVC\Srcs\jsonlib\CMakeFiles\generate.stamp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:/Users/liuzi/Documents/GitHub/HEIF-Utility-Native-DLL/Srcs/jsonlib/CMakeLists.txt;C:\Users\liuzi\Documents\GitHub\HEIF-Utility-Native-DLL\Srcs\jsonlib\CMakeLists.txt;C:\Users\liuzi\Documents\GitHub\HEIF-Utility-Native-DLL\Srcs\jsonlib\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Users\liuzi\Documents\GitHub\HEIF-Utility-Native-DLL\MSVC\Srcs\jsonlib\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Building Custom Rule C:/Users/liuzi/Documents/GitHub/HEIF-Utility-CommandLineTool/Srcs/jsonlib/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Building Custom Rule C:/Users/liuzi/Documents/GitHub/HEIF-Utility-Native-DLL/Srcs/jsonlib/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
-C:\Software\cmake\bin\cmake.exe -HC:/Users/liuzi/Documents/GitHub/HEIF-Utility-CommandLineTool -BC:/Users/liuzi/Documents/GitHub/HEIF-Utility-CommandLineTool/MSVC --check-stamp-file C:/Users/liuzi/Documents/GitHub/HEIF-Utility-CommandLineTool/MSVC/Srcs/jsonlib/CMakeFiles/generate.stamp
+C:\Software\cmake\bin\cmake.exe -HC:/Users/liuzi/Documents/GitHub/HEIF-Utility-Native-DLL -BC:/Users/liuzi/Documents/GitHub/HEIF-Utility-Native-DLL/MSVC --check-stamp-file C:/Users/liuzi/Documents/GitHub/HEIF-Utility-Native-DLL/MSVC/Srcs/jsonlib/CMakeFiles/generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -265,17 +265,17 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:/Users/liuzi/Documents/GitHub/HEIF-Utility-CommandLineTool/Srcs/jsonlib/CMakeLists.txt;C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\jsonlib\CMakeLists.txt;C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\jsonlib\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\MSVC\Srcs\jsonlib\CMakeFiles\generate.stamp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:/Users/liuzi/Documents/GitHub/HEIF-Utility-Native-DLL/Srcs/jsonlib/CMakeLists.txt;C:\Users\liuzi\Documents\GitHub\HEIF-Utility-Native-DLL\Srcs\jsonlib\CMakeLists.txt;C:\Users\liuzi\Documents\GitHub\HEIF-Utility-Native-DLL\Srcs\jsonlib\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Users\liuzi\Documents\GitHub\HEIF-Utility-Native-DLL\MSVC\Srcs\jsonlib\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\Srcs\jsonlib\jsoncpp.cpp"  />
+    <ClCompile Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-Native-DLL\Srcs\jsonlib\jsoncpp.cpp"  />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-CommandLineTool\MSVC\ZERO_CHECK.vcxproj">
-      <Project>{FE016373-DD27-3953-913A-F9469BFEE009}</Project>
+    <ProjectReference Include="C:\Users\liuzi\Documents\GitHub\HEIF-Utility-Native-DLL\MSVC\ZERO_CHECK.vcxproj">
+      <Project>{E3795462-8073-3514-A32E-CA41595DA430}</Project>
       <Name>ZERO_CHECK</Name>
     </ProjectReference>
   </ItemGroup>
