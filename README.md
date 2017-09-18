@@ -5,7 +5,7 @@ Part Of <a href="https://github.com/liuziangexit/HEIF-Utility">HEIF-Utility</a>.
 此工程生成 HUD.DLL，该动态库是 HEIF 实用工具的一部分。<br>
 
 <h2>接口</h2>
-void heif2jpg(const char* heif_bin, int input_buffer_size, const int jpg_quality, char* output_buffer, int output_buffer_size)<br>
+void heif2jpg(const char* heif_bin, int input_buffer_size, const int jpg_quality, char* output_buffer, int output_buffer_size)<br><br>
 作用: 将 Apple HEIF 转换为 JPEG<br>
 调用约定: Cdecl<br>
 参数 heif_bin: HEIF 文件二进制数据<br>
