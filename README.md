@@ -21,5 +21,12 @@ Apple HEIF 将图片分割为数个 512*512 像素的图块(tiles)，然后按�
 某些边缘的图块可能包含黑色填充区，因为某些时候照片的分辨率不一定就是 512*512 的倍数，所以多出来的部分用黑色填充。<br>
 
 <h2>示例</h2>
-对于一张由 iPhone 7 拍摄的分辨率为 4032*3024 的典型图像，Apple HEIF 将这样进行储存：
-<img src="/img/img0.jpg">
+对于一张由 iPhone 7 拍摄的分辨率为 4032*3024 的典型图像，Apple HEIF 将这样进行储存：<br>
+图片被分割为 8*6 个图块，每行 8 个，一共 6 行。<br>
+图片右边和下面的边缘处有填充，填充的像素数: 512*512*8*6-4032*3024=390144。<br>
+<img src="/img/img0.jpg"><br>
+
+<h2>实现</h2>
+源代码：https://github.com/liuziangexit/HEIF-Utility-Native-DLL/blob/master/Srcs/HUD/main.cpp
+1.提取 HEIF 的 宽度、高度、行数、列数、相对角度。(第 61 行，bool read_heif_info(heifdata&, HevcImageFileReader&, const uint32_t&)noexcept<br>
+2.提取 HEIF 参数集。(第 88 行，bool read_heif_paramset(heifdata&, HevcImageFileReader&, const uint32_t&, const HevcImageFileReader::IdVector&)noexcept<br>
