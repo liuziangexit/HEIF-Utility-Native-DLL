@@ -16,7 +16,7 @@ void heif2jpg(const char* heif_bin, int input_buffer_size, const int jpg_quality
 异常: 无<br>
 
 <h2>Apple HEIF 如何储存一张图片</h2>
-Apple HEIF 将图片分割为数个 512*512 像素的图块(tiles)，然后按照 从左到右，从上到下 的顺序，依次将图块存入 HEIF 图像序列。<br>
+Apple HEIF 将图片分割为数个较小的图块(tiles)，小图块的分辨率一般是 512*512，然后按照 从左到右，从上到下 的顺序，依次将图块存入 HEIF 图像序列。<br>
 图块的角度可能和照片的角度不一致，但 HEIF 同时记录了图块相对于照片的角度。<br>
 某些边缘的图块可能包含黑色填充区，因为某些时候照片的分辨率不一定就是 512*512 的倍数，所以多出来的部分用黑色填充。<br>
 
