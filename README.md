@@ -27,6 +27,6 @@ Apple HEIF 将图片分割为数个 512*512 像素的图块(tiles)，然后按�
 <img src="/img/img0.jpg"><br>
 
 <h2>实现</h2>
-源代码：https://github.com/liuziangexit/HEIF-Utility-Native-DLL/blob/master/Srcs/HUD/main.cpp
-1.提取 HEIF 的 宽度、高度、行数、列数、相对角度。(第 61 行，bool read_heif_info(heifdata&, HevcImageFileReader&, const uint32_t&)noexcept<br>
-2.提取 HEIF 参数集。(第 88 行，bool read_heif_paramset(heifdata&, HevcImageFileReader&, const uint32_t&, const HevcImageFileReader::IdVector&)noexcept<br>
+源代码：https://github.com/liuziangexit/HEIF-Utility-Native-DLL/blob/master/Srcs/HUD/main.cpp <br>
+1.提取 HEIF 的 宽度、高度、行数、列数、相对角度。(第 61 行，bool read_heif_info(heifdata&, HevcImageFileReader&, const uint32_t&)noexcept <br>
+2.提取 HEIF 参数集。(第 88 行，bool read_heif_paramset(heifdata&, HevcImageFileReader&, const uint32_t&, const HevcImageFileReader::IdVector&)noexcept <br>
