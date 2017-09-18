@@ -42,5 +42,5 @@ Apple HEIF 将图片分割为数个 512*512 像素的图块(tiles)，然后按�
 详细描述：https://stackoverflow.com/questions/45485622/corrupted-heic-tile-when-converting-to-jpeg <br>
 原因：该图块的 header 写入时使用了错误的 SPS；<br>
 解决：https://github.com/liuziangexit/heif <br><br>
-2.OpenCV 的 VideoCapture 只支持从文件或者摄像头读取视频流（而不能从内存直接读），这样就需要把裸流写到临时文件，然后再读那个临时文件。。。这完全是多此一举，磁盘 IO 是很慢的，拖累了整个函数的性能，目前的性能瓶颈就在这。<br><br>
-如何解决：我在堆栈溢出上面找到了这个六年前的问题：https://stackoverflow.com/questions/5237175/process-video-stream-from-memory-buffer，里面有个回答提到了如何通过修改 VideoCapture 代码来让它支持从内存中读取视频流的方法。我还没去着手做这件事情，等有空了再优化一波。
+2.OpenCV 的 VideoCapture 只支持从文件或者摄像头读取视频流（而不能从内存直接读），这样就需要把裸流写到临时文件，然后再读那个临时文件。。。这完全是多此一举，磁盘 IO 是很慢的，拖累了整个函数的性能，目前的性能瓶颈就在这。<br>
+如何解决：我在堆栈溢出上面找到了这个六年前的问题：https://stackoverflow.com/questions/5237175/process-video-stream-from-memory-buffer ，里面有个回答提到了如何通过修改 VideoCapture 代码来让它支持从内存中读取视频流的方法。我还没去着手做这件事情，等有空了再优化一波。
