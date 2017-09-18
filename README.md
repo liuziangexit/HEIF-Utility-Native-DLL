@@ -27,6 +27,13 @@ Apple HEIF 将图片分割为数个 512*512 像素的图块(tiles)，然后按�
 <img src="/img/img0.jpg"><br>
 
 <h2>实现</h2>
-源代码：https://github.com/liuziangexit/HEIF-Utility-Native-DLL/blob/master/Srcs/HUD/main.cpp <br>
-1.提取 HEIF 的 宽度、高度、行数、列数、相对角度。(第 61 行，bool read_heif_info(heifdata&, HevcImageFileReader&, const uint32_t&)noexcept <br>
-2.提取 HEIF 参数集。(第 88 行，bool read_heif_paramset(heifdata&, HevcImageFileReader&, const uint32_t&, const HevcImageFileReader::IdVector&)noexcept <br>
+源代码：https://github.com/liuziangexit/HEIF-Utility-Native-DLL/blob/master/Srcs/HUD/main.cpp <br><br>
+1.提取 HEIF 的 宽度、高度、行数、列数、相对角度。(第 61 行，bool read_heif_info(heifdata&, HevcImageFileReader&, const uint32_t&) <br>
+2.提取 HEIF 参数集。(第 88 行，bool read_heif_paramset(heifdata&, HevcImageFileReader&, const uint32_t&, const HevcImageFileReader::IdVector&) <br>
+3.提取 HEIF 中所有的图块。(第 107 行，bool read_heif_tiles(heifdata&, HevcImageFileReader&, const uint32_t&, const HevcImageFileReader::IdVector&) <br>
+4.把所有图块转换成 HEVC Bitstream(HEVC 裸流)，写入到文件。(第 156 行，bool write_hevc_bitstream(const std::string&, const heifdata&) <br>
+5.从 HEVC Bitstream 中读取所有的帧(HEIF 中所有的图块)。(第 174 行，std::vector<cv::Mat> read_hevc_bitstream_to_mat_vector(const std::string&) <br>
+6.把图块们拼起来。(第 277 行 <br>
+7.剪裁掉多余的黑色填充区域。(第 292 行 <br>
+8.旋转到正确角度。(第 295 行 <br>
+9.将 Bitmap 编码为 JPEG。(第 298 行 <br>
