@@ -1,18 +1,22 @@
+//nokiatech-heif
 #include "hevcimagefilereader.cpp"
 #include "log.hpp"
 
+//opencv
 #include <opencv2/core/core.hpp>
 #include <opencv2/highgui/highgui.hpp>
 #include <opencv2/imgproc.hpp>
-#include <opencv2\core\core_c.h>
-#include <opencv2\opencv.hpp>
+#include <opencv2/core/core_c.h>
+#include <opencv2/opencv.hpp>
 
+//std
 #include <sstream>
+#include <exception>
 
+//liuzianglib
 #include "liuzianglib/liuzianglib.h"
 #include "liuzianglib/DC_STR.h"
 #include "liuzianglib/DC_File.h"
-#include "liuzianglib/DC_jsonBuilder.h"
 
 struct heifdata {
 	heifdata() = default;
@@ -22,6 +26,8 @@ struct heifdata {
 	heifdata(heifdata&&) = default;
 
 	heifdata& operator=(const heifdata&) = default;
+
+	heifdata& operator=(heifdata&&) = default;
 
 	//info
 	uint32_t width;
@@ -34,7 +40,7 @@ struct heifdata {
 	std::string paramset;
 };
 
-std::string heif_info_str(const heifdata& info)noexcept {
+std::string heif_info_str(const heifdata& info) {
 	std::string rv;
 
 	rv += "  width: ";
@@ -75,6 +81,7 @@ bool read_heif_info(heifdata& readto, HevcImageFileReader& reader, const uint32_
 		for (const auto& property : itemProperties) {
 			if (property.type == ImageFileReaderInterface::ItemPropertyType::IROT) {
 				readto.rotation = reader.getPropertyIrot(contextId, property.index).rotation;
+				break;
 			}
 		}
 
@@ -106,10 +113,8 @@ bool read_heif_paramset(heifdata& readto, HevcImageFileReader& reader, const uin
 
 bool read_heif_tiles(heifdata& readto, HevcImageFileReader& reader, const uint32_t& contextid, const HevcImageFileReader::IdVector& ids)noexcept {
 	try {
-		readto.tiles.resize(ids.size());
-
 		decltype(readto.tiles)::size_type index = 0;
-
+		readto.tiles.resize(ids.size());
 		for (const auto& p : ids) {
 			reader.getItemDataWithDecoderParameters(contextid, p, readto.tiles[index]);
 			++index;
@@ -123,14 +128,14 @@ bool read_heif_tiles(heifdata& readto, HevcImageFileReader& reader, const uint32
 }
 
 heifdata read_heif(const std::string& heic_bin) {
-	HevcImageFileReader reader;
 	std::istringstream iss(heic_bin);
+
+	HevcImageFileReader reader;
 	reader.initialize(iss);
 
 	heifdata returnthis;
 
-	//const auto& properties = reader.getFileProperties();
-	const uint32_t contextid = reader.getFileProperties().rootLevelMetaBoxProperties.contextId;
+	const uint32_t& contextid = reader.getFileProperties().rootLevelMetaBoxProperties.contextId;
 	HevcImageFileReader::IdVector ids;
 	reader.getItemListByType(contextid, "master", ids);
 
@@ -160,7 +165,7 @@ bool write_hevc_bitstream(const std::string& filename, const heifdata& data)noex
 		for (const auto& p : data.tiles)
 			reserve_to += p.size();
 		str.reserve(reserve_to + 128);//直接reserve到reserve_to的时候发现循环的时候还是经历了一次reserve，所以不如多分配一点避免循环中reserve
-		
+
 		for (const auto& p : data.tiles)
 			str += get_tile_str(p, data.paramset);
 
@@ -180,7 +185,7 @@ std::vector<cv::Mat> read_hevc_bitstream_to_mat_vector(const std::string& filena
 
 		std::vector<cv::Mat> returnvalue;
 		cv::Mat frame;
-		returnvalue.reserve(48);
+		returnvalue.reserve(48);//48是4032*3024分辨率时候的图块数
 
 		while (true) {
 			if (!vcap.read(frame))
@@ -226,8 +231,7 @@ void rotate(cv::Mat& image, const heifdata& info) {
 		cv::flip(image, image, 0);
 	};
 
-	auto rtime(info.rotation / 90);
-	for (int i = 0; i < rtime; i++)
+	for (int i = 0; i < info.rotation / 90; i++)
 		rotate90();
 }
 
