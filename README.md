@@ -18,7 +18,7 @@ void heif2jpg(const char* heif_bin, int input_buffer_size, const int jpg_quality
 <h2>Apple HEIF 如何储存一张图片</h2>
 Apple HEIF 将图片分割为数个较小的图块(tiles)，小图块的分辨率一般是 512*512，然后按照 从左到右，从上到下 的顺序，依次将图块存入 HEIF 图像序列。<br>
 图块的角度可能和照片的角度不一致，但 HEIF 同时记录了图块相对于照片的角度。<br>
-某些边缘的图块可能包含黑色填充区，因为某些时候照片的分辨率不一定就是 512*512 的倍数，所以多出来的部分用黑色填充。<br>
+某些边缘的图块可能包含黑色填充区，因为某些时候照片的分辨率不一定就是 512*512 的倍数，所以多出来的部分用黑色填充<br>
 
 <h2>示例</h2>
 对于一张由 iPhone 7 拍摄的分辨率为 4032*3024 的典型图像，Apple HEIF 将这样进行储存：<br>
@@ -28,15 +28,15 @@ Apple HEIF 将图片分割为数个较小的图块(tiles)，小图块的分辨�
 
 <h2>实现</h2>
 源代码：https://github.com/liuziangexit/HEIF-Utility-Native-DLL/blob/master/Srcs/HUD/main.cpp <br><br>
-1.提取 HEIF 的 宽度、高度、行数、列数、相对角度。(第 61 行，bool read_heif_info(heifdata&, HevcImageFileReader&, const uint32_t&) <br>
-2.提取 HEIF 参数集。(第 88 行，bool read_heif_paramset(heifdata&, HevcImageFileReader&, const uint32_t&, const HevcImageFileReader::IdVector&) <br>
-3.提取 HEIF 中所有的图块。(第 107 行，bool read_heif_tiles(heifdata&, HevcImageFileReader&, const uint32_t&, const HevcImageFileReader::IdVector&) <br>
-4.把所有图块转换成 HEVC Bitstream(HEVC 裸流)，写入到文件。(第 156 行，bool write_hevc_bitstream(const std::string&, const heifdata&) <br>
-5.从 HEVC Bitstream 中读取所有的帧(HEIF 中所有的图块)。(第 174 行，std::vector<cv::Mat> read_hevc_bitstream_to_mat_vector(const std::string&) <br>
-6.把图块们拼起来。(第 277 行 <br>
-7.剪裁掉多余的黑色填充区域。(第 292 行 <br>
-8.旋转到正确角度。(第 295 行 <br>
-9.将 Bitmap 编码为 JPEG。(第 298 行 <br>
+1.提取 HEIF 的 宽度、高度、行数、列数、相对角度。(第 67 行，bool read_heif_info(heifdata&, HevcImageFileReader&, const uint32_t&)<br>
+2.提取 HEIF 参数集。(第 95 行，bool read_heif_paramset(heifdata&, HevcImageFileReader&, const uint32_t&, const HevcImageFileReader::IdVector&)<br>
+3.提取 HEIF 中所有的图块。(第 114 行，bool read_heif_tiles(heifdata&, HevcImageFileReader&, const uint32_t&, const HevcImageFileReader::IdVector&)<br>
+4.把所有图块转换成 HEVC Bitstream(HEVC 裸流)，写入到文件。(第 161 行，bool write_hevc_bitstream(const std::string&, const heifdata&)<br>
+5.从 HEVC Bitstream 中读取所有的帧(HEIF 中所有的图块)。(第 179 行，std::vector read_hevc_bitstream_to_mat_vector(const std::string&)<br>
+6.把图块们拼起来。(第 281 行<br>
+7.剪裁掉多余的黑色填充区域。(第 296 行<br>
+8.旋转到正确角度。(第 299 行<br>
+9.将 Bitmap 编码为 JPEG。(第 302 行<br>
 <h2>踩坑</h2>
 1.nokiatech 给的 hevcimagefilereader 无法正确读取第七个图块。<br>
 详细描述：https://stackoverflow.com/questions/45485622/corrupted-heic-tile-when-converting-to-jpeg <br>
