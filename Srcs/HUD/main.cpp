@@ -235,8 +235,8 @@ void rotate(cv::Mat& image, const heifdata& info) {
 		rotate90();
 }
 
-extern "C" __declspec(dllexport) void heif2jpg(const char heif_bin[], int input_buffer_size, const int jpg_quality, char output_buffer[], int output_buffer_size) {
-	constexpr const char* temp_filename = "temp_bitstream.hevc";
+extern "C" __declspec(dllexport) void heif2jpg(const char heif_bin[], int input_buffer_size, const int jpg_quality, char output_buffer[], int output_buffer_size, const char* input_temp_filename) {
+	const char* temp_filename = input_temp_filename;
 	auto copy_to_output_buffer = [&output_buffer, &output_buffer_size](const std::string& source) {
 		if (output_buffer_size < source.size())
 			return false;
