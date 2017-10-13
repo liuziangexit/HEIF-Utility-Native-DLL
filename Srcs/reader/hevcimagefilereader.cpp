@@ -1008,6 +1008,7 @@ void HevcImageFileReader::readStream()
     bool metaFound = false;
     bool moovFound = false;
 
+	/*
     const int compatibilityVersion = readCompatibilityVersion();
     if (compatibilityVersion == 0)
     {
@@ -1023,9 +1024,14 @@ void HevcImageFileReader::readStream()
                 << "). Backwards compatibility is not guaranteed." << std::endl;
         }
     }
+	*/
 
+	uint32_t count = 0;
     while (mInputStream->peek() != EOF)
     {
+		if (count > 1024)
+			break;
+		count++;
         string boxType;
         BitStream bitstream;
         readBox(bitstream, boxType);
