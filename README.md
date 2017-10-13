@@ -17,6 +17,9 @@ void heif2jpg(const char heif_bin[], int input_buffer_size, const int jpg_qualit
 参数 input_temp_filename: 函数运行时将会产生临时文件，通过此参数指定临时文件名。在执行结束后，临时文件可以被删除。<br>
 异常: 无<br>
 
+<h2>提示</h2>
+如果编译出来的代码在 read_hevc_bitstream_to_mat_vector 那里提示无法打开 bitstream 文件，这说明你编译的 opencv 库不支持 h265 解码。在 Windows 上你只需要从官网下一个完整编译的二进制动态库，然后把那几个动态库放到根目录就可以成功打开了；但是如果在 linux/macOS 上出现这个问题，那情况就比较麻烦，你需要自己编译 opencv，使它支持 h265。
+
 <h2>Apple HEIF 如何储存一张图片</h2>
 Apple HEIF 将图片分割为数个较小的图块(tiles)，小图块的分辨率一般是 512*512，然后按照 从左到右，从上到下 的顺序，依次将图块存入 HEIF 图像序列。<br>
 图块的角度可能和照片的角度不一致，但 HEIF 同时记录了图块相对于照片的角度。<br>
