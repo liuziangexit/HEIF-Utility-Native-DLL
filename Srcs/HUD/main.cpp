@@ -247,12 +247,14 @@ extern "C" __declspec(dllexport) void heif2jpg(const char heif_bin[], int input_
 	};
 
 	//拿到heic文件二进制数据
+	//get the binary data of heic file
 	std::string heif_bin_str(heif_bin, input_buffer_size);
 
 	Log::setLevel(Log::LogLevel::ERROR);
 	heifdata data;
 
 	//解析到data里
+	//read that
 	try {
 		data = read_heif(heif_bin_str);
 	}
@@ -262,12 +264,14 @@ extern "C" __declspec(dllexport) void heif2jpg(const char heif_bin[], int input_
 	}
 
 	//把heic文件里所有的图块转成hevc裸流写到临时文件里（文件名由temp_filename指定）
+	//convert all tiles inside heic image to a hevc bitstream,and write bitstream to a temp file(the name of temp file is specified by temp_filename)
 	if (!write_hevc_bitstream(temp_filename, data)) {
 		copy_to_output_buffer("error");
 		return;
 	}
 
 	//读取临时文件并提取中其中所有的帧(图块)
+	//read the temp file and get all tiles inside
 	auto mat_vec = read_hevc_bitstream_to_mat_vector(temp_filename);
 	//DC::File::del(temp_filename);
 	if (mat_vec.empty()) {
@@ -278,6 +282,7 @@ extern "C" __declspec(dllexport) void heif2jpg(const char heif_bin[], int input_
 	std::string encoded_jpg;
 	try {
 		//拼合
+		//piece
 		auto getLineIndex = [&data](const uint32_t& line) {
 			return line * data.cols;
 		};
@@ -293,12 +298,15 @@ extern "C" __declspec(dllexport) void heif2jpg(const char heif_bin[], int input_
 		}
 
 		//剪裁
+		//clip
 		auto fullImage(resize(vconcatLine(lines), data));
 
 		//旋转
+		//rotate
 		rotate(fullImage, data);
 
 		//编码为jpg
+		//encoded as jpg
 		std::vector<uint8_t> encoded_buf;
 		if (!cv::imencode(".jpg", fullImage, encoded_buf, { CV_IMWRITE_JPEG_QUALITY, jpg_quality })) {
 			copy_to_output_buffer("error");
