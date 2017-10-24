@@ -1,4 +1,4 @@
-# HEIF-Utility-Native-DLL
+﻿# HEIF-Utility-Native-DLL
 Part Of <a href="https://github.com/liuziangexit/HEIF-Utility">HEIF-Utility</a>.<br>
 <a href="https://github.com/liuziangexit/HEIF-Utility-Native-DLL/blob/master/Srcs/HUD/main.cpp">Main Source Code</a><br>
 
@@ -29,7 +29,7 @@ Apple HEIF 将图片分割为数个较小的图块(tiles)，小图块的分辨�
 对于一张由 iPhone 7 拍摄的分辨率为 4032*3024 的典型图像，Apple HEIF 将这样进行储存：<br>
 图片被分割为 8*6 个图块，每行 8 个，一共 6 行。<br>
 图片右边和下面的边缘处有填充，填充的像素数: 512*512*8*6-4032*3024=390144。<br><br>
-<img src="/img/img0.jpg"><br>
+<img src="/Img/img0.jpg"><br>
 
 <h2>实现</h2>
 源代码：https://github.com/liuziangexit/HEIF-Utility-Native-DLL/blob/master/Srcs/HUD/main.cpp <br><br>
