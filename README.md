@@ -1,6 +1,6 @@
 ﻿# HEIF-Utility-Native-DLL
-Part Of <a href="https://github.com/liuziangexit/HEIF-Utility">HEIF-Utility</a>.<br>
-<a href="https://github.com/liuziangexit/HEIF-Utility-Native-DLL/blob/master/Srcs/HUD/main.cpp">Main Source Code</a><br>
+<a href="https://github.com/liuziangexit/HEIF-Utility">HEIF-Utility</a> 的一部分。<br>
+<a href="https://github.com/liuziangexit/HEIF-Utility-Native-DLL/blob/master/Srcs/HUD/main.cpp">主要源代码</a><br>
 
 <h2>总览</h2>
 此工程生成 HUD.dll，该动态库是 HEIF 实用工具的一部分。<br>
@@ -13,7 +13,7 @@ void heif2jpg(const char heif_bin[], int input_buffer_size, const int jpg_qualit
 参数 input_buffer_size: HEIF 文件二进制数据大小<br>
 参数 jpg_quality: 设定输出的 JPEG 图像的质量。取值 1-100，数值越高质量越好<br>
 参数 output_buffer: JPEG 图像输出缓冲区<br>
-参数 heif_bin: 输出缓冲区大小<br>
+参数 output_buffer_size: 输出缓冲区大小<br>
 参数 input_temp_filename: 函数运行时将会产生临时文件，通过此参数指定临时文件名。在执行结束后，临时文件可以被删除。<br>
 异常: 无<br>
 
