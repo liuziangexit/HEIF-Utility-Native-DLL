@@ -291,3 +291,4 @@ __pycache__/
 *.ilk
 *.pdb
 *.exe
+MSVC/buildinfo.hpp
