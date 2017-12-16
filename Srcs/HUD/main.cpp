@@ -17,6 +17,11 @@
 #include "liuzianglib/liuzianglib.h"
 #include "liuzianglib/DC_STR.h"
 #include "liuzianglib/DC_File.h"
+#include "liuzianglib\DC_jsonBuilder.h"
+
+//easyexif (修改过的
+//easyexif (modified
+#include "exif.h"
 
 struct heifdata {
 	heifdata() = default;
@@ -29,40 +34,19 @@ struct heifdata {
 
 	heifdata& operator=(heifdata&&) = default;
 
-	//info
+	//图片信息
+	//image info	
 	uint32_t width;
 	uint32_t height;
 	uint32_t rows;
 	uint32_t cols;
 	uint32_t rotation = 0;
+
+	//图片数据
 	//data
 	std::vector<HevcImageFileReader::DataVector> tiles;
 	std::string paramset;
 };
-
-std::string heif_info_str(const heifdata& info) {
-	std::string rv;
-
-	rv += "  width: ";
-	rv += DC::STR::toString(info.width) + "\n";
-
-	rv += "  height: ";
-	rv += DC::STR::toString(info.height) + "\n";
-
-	rv += "  rows: ";
-	rv += DC::STR::toString(info.rows) + "\n";
-
-	rv += "  cols: ";
-	rv += DC::STR::toString(info.cols) + "\n";
-
-	rv += "  rotation: ";
-	rv += DC::STR::toString(info.rotation) + "\n";
-
-	rv += "  tiles: ";
-	rv += DC::STR::toString(info.tiles.size());
-
-	return rv;
-}
 
 bool read_heif_info(heifdata& readto, HevcImageFileReader& reader, const uint32_t& contextId)noexcept {
 	try {
@@ -127,10 +111,55 @@ bool read_heif_tiles(heifdata& readto, HevcImageFileReader& reader, const uint32
 	}
 }
 
-heifdata read_heif(const std::string& heic_bin) {
-	std::istringstream iss(heic_bin);
+std::tuple<EXIF,bool> read_heif_exif(HevcImageFileReader& reader, const uint32_t& contextid)noexcept {
+	using return_type = std::tuple<EXIF, bool>;
+	try {
+		std::vector<uint8_t> exif_raw_data(read_heif_exif_raw(reader, contextid));
 
-	HevcImageFileReader reader;
+		int exif_begin_offset = -1;
+		for (auto it = 0; it < exif_raw_data.size(); it++)
+			if (exif_raw_data[it] == 'E'&&exif_raw_data[it + 1] == 'x'&&exif_raw_data[it + 2] == 'i'&&exif_raw_data[it + 3] == 'f'&&exif_raw_data[it + 4] == 0 && exif_raw_data[it + 5] == 0) {
+				exif_begin_offset = it;
+				break;
+			}
+		if (exif_begin_offset == -1)
+			throw std::exception("can not find exif");
+				
+		EXIF exif;
+		auto status = exif.parseFromEXIFSegment(reinterpret_cast<const unsigned char*>(exif_raw_data.data()) + exif_begin_offset, exif_raw_data.size() - exif_begin_offset);
+
+		return_type rv;
+		std::get<0>(rv) = std::move(exif);
+		std::get<1>(rv) = status == 0;
+
+		return rv;
+	}
+	catch (...) {
+		return return_type(EXIF(), false);
+	}
+}
+
+std::vector<uint8_t> read_heif_exif_raw(HevcImageFileReader& reader, const uint32_t& contextid)noexcept {
+	try {
+		if (reader.mMetaBoxInfo.empty())
+			throw std::exception();
+
+		auto iteminfo(*std::get<1>(*reader.mMetaBoxInfo.begin()).itemInfoMap.begin());
+		if (DC::STR::toLower(std::get<1>(iteminfo).type) != "exif")
+			return std::vector<uint8_t>();
+
+		std::vector<uint8_t> exif_raw_data;
+		reader.getItemData(contextid, std::get<0>(iteminfo), exif_raw_data);
+
+		return exif_raw_data;
+	}
+	catch (...) {
+		return std::vector<uint8_t>();
+	}
+}
+
+heifdata read_heif(HevcImageFileReader& reader, const std::string& heic_bin) {
+	std::istringstream iss(heic_bin);
 	reader.initialize(iss);
 
 	heifdata returnthis;
@@ -235,14 +264,15 @@ void rotate(cv::Mat& image, const heifdata& info) {
 		rotate90();
 }
 
-extern "C" __declspec(dllexport) void heif2jpg(const char heif_bin[], int input_buffer_size, const int jpg_quality, char output_buffer[], int output_buffer_size, const char* input_temp_filename) {
+extern "C" __declspec(dllexport) void heif2jpg(const char heif_bin[], int input_buffer_size, const int jpg_quality, char output_buffer[], int output_buffer_size, const char* input_temp_filename, int* copysize) {
 	const char* temp_filename = input_temp_filename;
-	auto copy_to_output_buffer = [&output_buffer, &output_buffer_size](const std::string& source) {
+	auto copy_to_output_buffer = [&output_buffer, &output_buffer_size, &copysize](const std::string& source) {
 		if (output_buffer_size < source.size())
 			return false;
 
 		memset(output_buffer, 0, output_buffer_size);
 		memcpy(output_buffer, source.data(), source.size());
+		*copysize = source.size();
 		return true;
 	};
 
@@ -254,9 +284,10 @@ extern "C" __declspec(dllexport) void heif2jpg(const char heif_bin[], int input_
 	heifdata data;
 
 	//解析到data里
-	//read that
+	//read that	
 	try {
-		data = read_heif(heif_bin_str);
+		HevcImageFileReader reader;
+		data = read_heif(reader, heif_bin_str);
 	}
 	catch (...) {
 		copy_to_output_buffer("error");
@@ -279,6 +310,7 @@ extern "C" __declspec(dllexport) void heif2jpg(const char heif_bin[], int input_
 		return;
 	}
 
+	
 	std::string encoded_jpg;
 	try {
 		//拼合
@@ -318,7 +350,62 @@ extern "C" __declspec(dllexport) void heif2jpg(const char heif_bin[], int input_
 		copy_to_output_buffer("error");
 		return;
 	}
-
+	
 	if (!copy_to_output_buffer(encoded_jpg))
 		copy_to_output_buffer("buffer to small");
+}
+
+extern "C" __declspec(dllexport) void getexif(const char heif_bin[], int input_buffer_size, char output_buffer[], int output_buffer_size, int* copysize) {
+	auto copy_to_output_buffer = [&output_buffer, &output_buffer_size, &copysize](const std::string& source) {
+		if (output_buffer_size < source.size())
+			return false;
+
+		memset(output_buffer, 0, output_buffer_size);
+		memcpy(output_buffer, source.data(), source.size());
+		*copysize = source.size();
+		return true;
+	};
+	
+	Log::setLevel(Log::LogLevel::ERROR);
+
+	try {
+		HevcImageFileReader reader;
+		std::istringstream iss(std::string(heif_bin, input_buffer_size));
+		reader.initialize(iss);
+		const uint32_t& contextid = reader.getFileProperties().rootLevelMetaBoxProperties.contextId;
+
+		auto exif = read_heif_exif(reader, contextid);
+		if (!std::get<1>(exif))
+			throw std::exception();
+
+		DC::Web::jsonBuilder::object jsobj;
+		jsobj.add("DateTime", DC::Web::jsonBuilder::value(std::get<0>(exif).DateTime));
+		jsobj.add("Software", DC::Web::jsonBuilder::value(std::get<0>(exif).Software));
+		jsobj.add("Make", DC::Web::jsonBuilder::value(std::get<0>(exif).Make));
+		jsobj.add("Model", DC::Web::jsonBuilder::value(std::get<0>(exif).Model));
+		jsobj.add("Camera", DC::Web::jsonBuilder::value(std::get<0>(exif).LensInfo.Model));
+		jsobj.add("FocalLength", DC::Web::jsonBuilder::number(std::get<0>(exif).FocalLength));
+		jsobj.add("FocalLengthIn35mm", DC::Web::jsonBuilder::number(std::get<0>(exif).FocalLengthIn35mm));
+		jsobj.add("ExposureTime", DC::Web::jsonBuilder::number(std::get<0>(exif).ExposureTime));
+		jsobj.add("FNumber", DC::Web::jsonBuilder::number(std::get<0>(exif).FNumber));
+		jsobj.add("ISOSpeedRatings", DC::Web::jsonBuilder::number(std::get<0>(exif).ISOSpeedRatings));
+		jsobj.add("ExposureProgram", DC::Web::jsonBuilder::number(std::get<0>(exif).ExposureProgram));
+		if (std::get<0>(exif).Flash == 1)
+			jsobj.add("Flash", DC::Web::jsonBuilder::value(true));
+		else
+			jsobj.add("Flash", DC::Web::jsonBuilder::value(false));
+		jsobj.add("ImageHeight", DC::Web::jsonBuilder::number(static_cast<int32_t>(std::get<0>(exif).ImageHeight)));
+		jsobj.add("ImageWidth", DC::Web::jsonBuilder::number(static_cast<int32_t>(std::get<0>(exif).ImageWidth)));
+		jsobj.add("Latitude", DC::Web::jsonBuilder::number(std::get<0>(exif).GeoLocation.Latitude));
+		jsobj.add("Longitude", DC::Web::jsonBuilder::number(std::get<0>(exif).GeoLocation.Longitude));
+		jsobj.add("Altitude", DC::Web::jsonBuilder::number(std::get<0>(exif).GeoLocation.Altitude));
+		jsobj.add("DOP", DC::Web::jsonBuilder::number(std::get<0>(exif).GeoLocation.DOP));
+
+		if (!copy_to_output_buffer(jsobj.toString()))
+			copy_to_output_buffer("buffer to small");
+	}
+	catch (...) {
+		copy_to_output_buffer("error");
+		return;
+	}
 }
