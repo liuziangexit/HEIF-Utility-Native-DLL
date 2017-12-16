@@ -1,4 +1,4 @@
-//nokiatech-heif
+ï»¿//nokiatech-heif
 #include "hevcimagefilereader.cpp"
 #include "log.hpp"
 
@@ -19,7 +19,7 @@
 #include "liuzianglib/DC_File.h"
 #include "liuzianglib\DC_jsonBuilder.h"
 
-//easyexif (ĞŞ¸Ä¹ıµÄ
+//easyexif (ä¿®æ”¹è¿‡çš„
 //easyexif (modified
 #include "exif.h"
 
@@ -34,7 +34,7 @@ struct heifdata {
 
 	heifdata& operator=(heifdata&&) = default;
 
-	//Í¼Æ¬ĞÅÏ¢
+	//å›¾ç‰‡ä¿¡æ¯
 	//image info	
 	uint32_t width;
 	uint32_t height;
@@ -42,7 +42,7 @@ struct heifdata {
 	uint32_t cols;
 	uint32_t rotation = 0;
 
-	//Í¼Æ¬Êı¾İ
+	//å›¾ç‰‡æ•°æ®
 	//data
 	std::vector<HevcImageFileReader::DataVector> tiles;
 	std::string paramset;
@@ -111,7 +111,7 @@ bool read_heif_tiles(heifdata& readto, HevcImageFileReader& reader, const uint32
 	}
 }
 
-std::tuple<EXIF,bool> read_heif_exif(HevcImageFileReader& reader, const uint32_t& contextid)noexcept {
+std::tuple<EXIF, bool> read_heif_exif(HevcImageFileReader& reader, const uint32_t& contextid)noexcept {
 	using return_type = std::tuple<EXIF, bool>;
 	try {
 		std::vector<uint8_t> exif_raw_data(read_heif_exif_raw(reader, contextid));
@@ -124,7 +124,7 @@ std::tuple<EXIF,bool> read_heif_exif(HevcImageFileReader& reader, const uint32_t
 			}
 		if (exif_begin_offset == -1)
 			throw std::exception("can not find exif");
-				
+
 		EXIF exif;
 		auto status = exif.parseFromEXIFSegment(reinterpret_cast<const unsigned char*>(exif_raw_data.data()) + exif_begin_offset, exif_raw_data.size() - exif_begin_offset);
 
@@ -193,7 +193,7 @@ bool write_hevc_bitstream(const std::string& filename, const heifdata& data)noex
 		uint32_t reserve_to = data.paramset.size()*data.tiles.size();
 		for (const auto& p : data.tiles)
 			reserve_to += p.size();
-		str.reserve(reserve_to + 128);//Ö±½Óreserveµ½reserve_toµÄÊ±ºò·¢ÏÖÑ­»·µÄÊ±ºò»¹ÊÇ¾­ÀúÁËÒ»´Îreserve£¬ËùÒÔ²»Èç¶à·ÖÅäÒ»µã±ÜÃâÑ­»·ÖĞreserve
+		str.reserve(reserve_to + 128);//ç›´æ¥reserveåˆ°reserve_toçš„æ—¶å€™å‘ç°å¾ªç¯çš„æ—¶å€™è¿˜æ˜¯ç»å†äº†ä¸€æ¬¡reserveï¼Œæ‰€ä»¥ä¸å¦‚å¤šåˆ†é…ä¸€ç‚¹é¿å…å¾ªç¯ä¸­reserve
 
 		for (const auto& p : data.tiles)
 			str += get_tile_str(p, data.paramset);
@@ -214,7 +214,7 @@ std::vector<cv::Mat> read_hevc_bitstream_to_mat_vector(const std::string& filena
 
 		std::vector<cv::Mat> returnvalue;
 		cv::Mat frame;
-		returnvalue.reserve(48);//48ÊÇ4032*3024·Ö±æÂÊÊ±ºòµÄÍ¼¿éÊı
+		returnvalue.reserve(48);//48æ˜¯4032*3024åˆ†è¾¨ç‡æ—¶å€™çš„å›¾å—æ•°
 
 		while (true) {
 			if (!vcap.read(frame))
@@ -276,14 +276,14 @@ extern "C" __declspec(dllexport) void heif2jpg(const char heif_bin[], int input_
 		return true;
 	};
 
-	//ÄÃµ½heicÎÄ¼ş¶ş½øÖÆÊı¾İ
+	//æ‹¿åˆ°heicæ–‡ä»¶äºŒè¿›åˆ¶æ•°æ®
 	//get the binary data of heic file
 	std::string heif_bin_str(heif_bin, input_buffer_size);
 
 	Log::setLevel(Log::LogLevel::ERROR);
 	heifdata data;
 
-	//½âÎöµ½dataÀï
+	//è§£æåˆ°dataé‡Œ
 	//read that	
 	try {
 		HevcImageFileReader reader;
@@ -294,14 +294,14 @@ extern "C" __declspec(dllexport) void heif2jpg(const char heif_bin[], int input_
 		return;
 	}
 
-	//°ÑheicÎÄ¼şÀïËùÓĞµÄÍ¼¿é×ª³ÉhevcÂãÁ÷Ğ´µ½ÁÙÊ±ÎÄ¼şÀï£¨ÎÄ¼şÃûÓÉtemp_filenameÖ¸¶¨£©
+	//æŠŠheicæ–‡ä»¶é‡Œæ‰€æœ‰çš„å›¾å—è½¬æˆhevcè£¸æµå†™åˆ°ä¸´æ—¶æ–‡ä»¶é‡Œï¼ˆæ–‡ä»¶åç”±temp_filenameæŒ‡å®šï¼‰
 	//convert all tiles inside heic image to a hevc bitstream,and write bitstream to a temp file(the name of temp file is specified by temp_filename)
 	if (!write_hevc_bitstream(temp_filename, data)) {
 		copy_to_output_buffer("error");
 		return;
 	}
 
-	//¶ÁÈ¡ÁÙÊ±ÎÄ¼ş²¢ÌáÈ¡ÖĞÆäÖĞËùÓĞµÄÖ¡(Í¼¿é)
+	//è¯»å–ä¸´æ—¶æ–‡ä»¶å¹¶æå–ä¸­å…¶ä¸­æ‰€æœ‰çš„å¸§(å›¾å—)
 	//read the temp file and get all tiles inside
 	auto mat_vec = read_hevc_bitstream_to_mat_vector(temp_filename);
 	//DC::File::del(temp_filename);
@@ -310,10 +310,10 @@ extern "C" __declspec(dllexport) void heif2jpg(const char heif_bin[], int input_
 		return;
 	}
 
-	
+
 	std::string encoded_jpg;
 	try {
-		//Æ´ºÏ
+		//æ‹¼åˆ
 		//piece
 		auto getLineIndex = [&data](const uint32_t& line) {
 			return line * data.cols;
@@ -329,15 +329,15 @@ extern "C" __declspec(dllexport) void heif2jpg(const char heif_bin[], int input_
 			temp.clear();
 		}
 
-		//¼ô²Ã
+		//å‰ªè£
 		//clip
 		auto fullImage(resize(vconcatLine(lines), data));
 
-		//Ğı×ª
+		//æ—‹è½¬
 		//rotate
 		rotate(fullImage, data);
 
-		//±àÂëÎªjpg
+		//ç¼–ç ä¸ºjpg
 		//encoded as jpg
 		std::vector<uint8_t> encoded_buf;
 		if (!cv::imencode(".jpg", fullImage, encoded_buf, { CV_IMWRITE_JPEG_QUALITY, jpg_quality })) {
@@ -350,7 +350,7 @@ extern "C" __declspec(dllexport) void heif2jpg(const char heif_bin[], int input_
 		copy_to_output_buffer("error");
 		return;
 	}
-	
+
 	if (!copy_to_output_buffer(encoded_jpg))
 		copy_to_output_buffer("buffer to small");
 }
@@ -365,7 +365,7 @@ extern "C" __declspec(dllexport) void getexif(const char heif_bin[], int input_b
 		*copysize = source.size();
 		return true;
 	};
-	
+
 	Log::setLevel(Log::LogLevel::ERROR);
 
 	try {
