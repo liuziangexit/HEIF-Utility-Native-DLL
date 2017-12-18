@@ -2,6 +2,11 @@
 #include "hevcimagefilereader.cpp"
 #include "log.hpp"
 
+//std
+#include <sstream>
+#include <exception>
+#include <vector>
+
 //opencv
 #include <opencv2/core/core.hpp>
 #include <opencv2/highgui/highgui.hpp>
@@ -9,19 +14,21 @@
 #include <opencv2/core/core_c.h>
 #include <opencv2/opencv.hpp>
 
-//std
-#include <sstream>
-#include <exception>
-
 //liuzianglib
 #include "liuzianglib/liuzianglib.h"
 #include "liuzianglib/DC_STR.h"
 #include "liuzianglib/DC_File.h"
-#include "liuzianglib\DC_jsonBuilder.h"
+#include "liuzianglib/DC_jsonBuilder.h"
 
 //easyexif (修改过的
 //easyexif (modified
 #include "exif.h"
+
+#ifdef _DEBUG
+#pragma comment( lib, "opencv_world330d.lib" )
+#else
+#pragma comment( lib, "opencv_world330.lib" )
+#endif
 
 struct heifdata {
 	heifdata() = default;
