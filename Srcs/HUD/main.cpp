@@ -30,6 +30,9 @@
 #pragma comment( lib, "opencv_world330.lib" )
 #endif
 
+static const unsigned int image_data_offset = 20;
+static const std::string exif_header_str{ char(0xff), char(0xd8), char(0xff), char(0xe1) };
+
 struct heifdata {
 	heifdata() = default;
 
@@ -53,6 +56,7 @@ struct heifdata {
 	//data
 	std::vector<HevcImageFileReader::DataVector> tiles;
 	std::string paramset;
+	std::string exif_raw;
 };
 
 bool read_heif_info(heifdata& readto, HevcImageFileReader& reader, const uint32_t& contextId)noexcept {
@@ -118,22 +122,11 @@ bool read_heif_tiles(heifdata& readto, HevcImageFileReader& reader, const uint32
 	}
 }
 
-std::tuple<EXIF, bool> read_heif_exif(HevcImageFileReader& reader, const uint32_t& contextid)noexcept {
+std::tuple<EXIF, bool> read_heif_exif(const std::string& exif_raw_data)noexcept {
 	using return_type = std::tuple<EXIF, bool>;
 	try {
-		std::vector<uint8_t> exif_raw_data(read_heif_exif_raw(reader, contextid));
-
-		int exif_begin_offset = -1;
-		for (auto it = 0; it < exif_raw_data.size(); it++)
-			if (exif_raw_data[it] == 'E'&&exif_raw_data[it + 1] == 'x'&&exif_raw_data[it + 2] == 'i'&&exif_raw_data[it + 3] == 'f'&&exif_raw_data[it + 4] == 0 && exif_raw_data[it + 5] == 0) {
-				exif_begin_offset = it;
-				break;
-			}
-		if (exif_begin_offset == -1)
-			throw std::exception("can not find exif");
-
 		EXIF exif;
-		auto status = exif.parseFromEXIFSegment(reinterpret_cast<const unsigned char*>(exif_raw_data.data()) + exif_begin_offset, exif_raw_data.size() - exif_begin_offset);
+		auto status = exif.parseFromEXIFSegment(reinterpret_cast<const unsigned char*>(exif_raw_data.data()), exif_raw_data.size());
 
 		return_type rv;
 		std::get<0>(rv) = std::move(exif);
@@ -146,26 +139,37 @@ std::tuple<EXIF, bool> read_heif_exif(HevcImageFileReader& reader, const uint32_
 	}
 }
 
-std::vector<uint8_t> read_heif_exif_raw(HevcImageFileReader& reader, const uint32_t& contextid)noexcept {
+std::string read_heif_exif_raw(HevcImageFileReader& reader, const uint32_t& contextid)noexcept {
+	//返回值是以"EXIF"开头的EXIF标签
 	try {
 		if (reader.mMetaBoxInfo.empty())
 			throw std::exception();
 
 		auto iteminfo(*std::get<1>(*reader.mMetaBoxInfo.begin()).itemInfoMap.begin());
 		if (DC::STR::toLower(std::get<1>(iteminfo).type) != "exif")
-			return std::vector<uint8_t>();
+			return std::string();
 
 		std::vector<uint8_t> exif_raw_data;
 		reader.getItemData(contextid, std::get<0>(iteminfo), exif_raw_data);
 
-		return exif_raw_data;
+		int exif_begin_offset = -1;
+		for (auto it = 0; it < exif_raw_data.size(); it++)
+			if (exif_raw_data[it] == 'E'&&exif_raw_data[it + 1] == 'x'&&exif_raw_data[it + 2] == 'i'&&exif_raw_data[it + 3] == 'f'&&exif_raw_data[it + 4] == 0 && exif_raw_data[it + 5] == 0) {
+				exif_begin_offset = it;
+				break;
+			}
+		if (exif_begin_offset == -1)
+			throw std::exception("can not find \"EXIF\"");
+
+		std::string return_this(exif_raw_data.begin() + exif_begin_offset, exif_raw_data.end());
+		return return_this;
 	}
 	catch (...) {
-		return std::vector<uint8_t>();
+		return std::string();
 	}
 }
 
-heifdata read_heif(HevcImageFileReader& reader, const std::string& heic_bin) {
+heifdata read_heif(HevcImageFileReader& reader, const std::string& heic_bin, bool should_read_exif) {
 	std::istringstream iss(heic_bin);
 	reader.initialize(iss);
 
@@ -186,6 +190,10 @@ heifdata read_heif(HevcImageFileReader& reader, const std::string& heic_bin) {
 	//read tiles
 	if (!read_heif_tiles(returnthis, reader, contextid, ids))
 		throw std::exception("get_heif_tiles returned false");
+
+	//read exif
+	if (should_read_exif)
+		returnthis.exif_raw = read_heif_exif_raw(reader, contextid);
 
 	return returnthis;
 }
@@ -271,7 +279,7 @@ void rotate(cv::Mat& image, const heifdata& info) {
 		rotate90();
 }
 
-extern "C" __declspec(dllexport) void heif2jpg(const char heif_bin[], int input_buffer_size, const int jpg_quality, char output_buffer[], int output_buffer_size, const char* input_temp_filename, int* copysize) {
+extern "C" __declspec(dllexport) void heif2jpg(const char heif_bin[], int input_buffer_size, const int jpg_quality, char output_buffer[], int output_buffer_size, const char* input_temp_filename, int* copysize, bool include_exif) {
 	const char* temp_filename = input_temp_filename;
 	auto copy_to_output_buffer = [&output_buffer, &output_buffer_size, &copysize](const std::string& source) {
 		if (output_buffer_size < source.size())
@@ -294,7 +302,7 @@ extern "C" __declspec(dllexport) void heif2jpg(const char heif_bin[], int input_
 	//read that	
 	try {
 		HevcImageFileReader reader;
-		data = read_heif(reader, heif_bin_str);
+		data = read_heif(reader, heif_bin_str, include_exif);
 	}
 	catch (...) {
 		copy_to_output_buffer("error");
@@ -317,7 +325,6 @@ extern "C" __declspec(dllexport) void heif2jpg(const char heif_bin[], int input_
 		return;
 	}
 
-
 	std::string encoded_jpg;
 	try {
 		//拼合
@@ -339,10 +346,12 @@ extern "C" __declspec(dllexport) void heif2jpg(const char heif_bin[], int input_
 		//剪裁
 		//clip
 		auto fullImage(resize(vconcatLine(lines), data));
-
+				
 		//旋转
 		//rotate
-		rotate(fullImage, data);
+		//有exif信息时不需要旋转，因为exif中记录了角度。但是假如没有exif信息，就需要旋转了，否则图片角度就不对
+		if (!include_exif)
+			rotate(fullImage, data);
 
 		//编码为jpg
 		//encoded as jpg
@@ -356,6 +365,20 @@ extern "C" __declspec(dllexport) void heif2jpg(const char heif_bin[], int input_
 	catch (...) {
 		copy_to_output_buffer("error");
 		return;
+	}
+		
+	if (include_exif) {
+		encoded_jpg.erase(encoded_jpg.begin(), encoded_jpg.begin() + image_data_offset);
+
+		std::string temp;
+		temp.reserve(exif_header_str.size() + 2 + encoded_jpg.size());
+		temp = exif_header_str;
+		temp += (data.exif_raw.size() + 2) >> 8;
+		temp += (data.exif_raw.size() + 2) & 0xff;
+		temp += data.exif_raw;
+		temp += encoded_jpg;
+
+		encoded_jpg = std::move(temp);
 	}
 
 	if (!copy_to_output_buffer(encoded_jpg))
@@ -381,7 +404,7 @@ extern "C" __declspec(dllexport) void getexif(const char heif_bin[], int input_b
 		reader.initialize(iss);
 		const uint32_t& contextid = reader.getFileProperties().rootLevelMetaBoxProperties.contextId;
 
-		auto exif = read_heif_exif(reader, contextid);
+		auto exif = read_heif_exif(read_heif_exif_raw(reader, contextid));
 		if (!std::get<1>(exif))
 			throw std::exception();
 

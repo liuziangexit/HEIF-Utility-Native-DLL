@@ -34,7 +34,7 @@ class heifdata;
 /** @brief Interface for reading an Image File (e.g. HEIF Image File) from the filesystem. */
 class HevcImageFileReader : public ImageFileReaderInterface
 {
-	friend std::vector<uint8_t> read_heif_exif_raw(HevcImageFileReader&, const uint32_t&)noexcept;
+	friend std::string read_heif_exif_raw(HevcImageFileReader&, const uint32_t&)noexcept;
 public:
     HevcImageFileReader();
     virtual ~HevcImageFileReader() = default;
