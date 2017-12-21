@@ -1,7 +1,7 @@
 ﻿# HEIF-Utility-Native-DLL
 <a href="https://github.com/liuziangexit/HEIF-Utility">HEIF-Utility</a> 的一部分。<br>
 <a href="https://github.com/liuziangexit/HEIF-Utility-Native-DLL/blob/master/Srcs/HUD/main.cpp">主要源代码</a><br>
-以下内容仅供参考，代码可能已经有了新的修改。生成此工程比较麻烦，如果你搞不定的话可以联系我，邮箱是liuziang@liuziangexit.com。<br>
+以下内容仅供参考，代码已经有了新的修改。生成此工程比较麻烦，如果你搞不定的话可以联系我，邮箱是liuziang@liuziangexit.com。<br>
 
 <h2>总览</h2>
 此工程生成 HUD.dll，该动态库是 HEIF 实用工具的一部分。<br>
