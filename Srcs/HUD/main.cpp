@@ -439,3 +439,8 @@ extern "C" __declspec(dllexport) void getexif(const char heif_bin[], int input_b
 		return;
 	}
 }
+
+extern "C" __declspec(dllexport) void test_dll(char buff[]) {
+	//此函数用于测试能否正常调用。将会向buff写入“naive”
+	memcpy(buff, "naive", 5);
+}
