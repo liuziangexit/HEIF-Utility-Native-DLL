@@ -305,14 +305,14 @@ extern "C" __declspec(dllexport) void heif2jpg(const char heif_bin[], int input_
 		data = read_heif(reader, heif_bin_str, include_exif);
 	}
 	catch (...) {
-		copy_to_output_buffer("read_heif error");
+		copy_to_output_buffer("HUD_ERR heif2jpg read_heif");
 		return;
 	}
 
 	//把heic文件里所有的图块转成hevc裸流写到临时文件里（文件名由temp_filename指定）
 	//convert all tiles inside heic image to a hevc bitstream,and write bitstream to a temp file(the name of temp file is specified by temp_filename)
 	if (!write_hevc_bitstream(temp_filename, data)) {
-		copy_to_output_buffer("write_hevc_bitstream error");
+		copy_to_output_buffer("HUD_ERR heif2jpg write_hevc_bitstream");
 		return;
 	}
 
@@ -321,7 +321,7 @@ extern "C" __declspec(dllexport) void heif2jpg(const char heif_bin[], int input_
 	auto mat_vec = read_hevc_bitstream_to_mat_vector(temp_filename);
 	//DC::File::del(temp_filename);
 	if (mat_vec.empty()) {
-		copy_to_output_buffer("read_hevc_bitstream_to_mat_vector error");
+		copy_to_output_buffer("HUD_ERR heif2jpg read_hevc_bitstream_to_mat_vector");
 		return;
 	}
 
@@ -357,13 +357,13 @@ extern "C" __declspec(dllexport) void heif2jpg(const char heif_bin[], int input_
 		//encoded as jpg
 		std::vector<uint8_t> encoded_buf;
 		if (!cv::imencode(".jpg", fullImage, encoded_buf, { CV_IMWRITE_JPEG_QUALITY, jpg_quality })) {
-			copy_to_output_buffer("imencode error");
+			copy_to_output_buffer("HUD_ERR heif2jpg imencode");
 			return;
 		}
 		encoded_jpg = std::string(encoded_buf.begin(), encoded_buf.end());
 	}
 	catch (...) {
-		copy_to_output_buffer("unknown error 1");
+		copy_to_output_buffer("HUD_ERR heif2jpg unknown");
 		return;
 	}
 		
@@ -382,7 +382,7 @@ extern "C" __declspec(dllexport) void heif2jpg(const char heif_bin[], int input_
 	}
 
 	if (!copy_to_output_buffer(encoded_jpg))
-		copy_to_output_buffer("buffer to small");
+		copy_to_output_buffer("HUD_ERR heif2jpg buffer to small");
 }
 
 extern "C" __declspec(dllexport) void getexif(const char heif_bin[], int input_buffer_size, char output_buffer[], int output_buffer_size, int* copysize) {
@@ -432,10 +432,10 @@ extern "C" __declspec(dllexport) void getexif(const char heif_bin[], int input_b
 		jsobj.add("DOP", DC::Web::jsonBuilder::number(std::get<0>(exif).GeoLocation.DOP));
 
 		if (!copy_to_output_buffer(jsobj.toString()))
-			copy_to_output_buffer("buffer to small");
+			copy_to_output_buffer("HUD_ERR get_exif buffer to small");
 	}
 	catch (...) {
-		copy_to_output_buffer("unknown error 2");
+		copy_to_output_buffer("HUD_ERR get_exif unknown");
 		return;
 	}
 }
