@@ -33,6 +33,15 @@
 static const unsigned int image_data_offset = 20;
 static const std::string exif_header_str{ char(0xff), char(0xd8), char(0xff), char(0xe1) };
 
+static const std::string SOI{ char(0xFF), char(0xD8) };
+static const std::string App0Marker = { char(0xFF), char(0xE0) };
+static const std::string App1Marker = { char(0xFF), char(0xE1) };
+static const std::string App2Marker = { char(0xFF), char(0xE2) };
+static const std::string JFIFIdentify = { 0x4A, 0x46, 0x49, 0x46, 0x00 };
+static const std::string ICC_PROFILE_Identify = { 0x49, 0x43, 0x43, 0x5F, 0x50, 0x52, 0x4f, 0x46, 0x49, 0x4C, 0x45, 0x00, 0x01, 0x01 };
+static int SOIandApp0SizeWithoutThumbnail = SOI.size() + App0Marker.size() + 16;
+static int SegmentLengthSize = 2;
+
 struct heifdata {
 	heifdata() = default;
 
@@ -279,8 +288,88 @@ void rotate(cv::Mat& image, const heifdata& info) {
 		rotate90();
 }
 
-extern "C" __declspec(dllexport) void heif2jpg(const char heif_bin[], int input_buffer_size, const int jpg_quality, char output_buffer[], int output_buffer_size, const char* input_temp_filename, int* copysize, bool include_exif) {
+bool isLittleEndian() {
+	int i = 0x11223344;
+	char c = *reinterpret_cast<char*>(&i);
+
+	if (c == 0x44)
+		return true;
+	else
+		return false;
+}
+
+short toInt16(const unsigned char *tail, int index) {
+	if (isLittleEndian())
+		return static_cast<short>(static_cast<unsigned short>(tail[index + 1] << 8) + static_cast<unsigned char>(tail[index]));
+	else
+		return static_cast<short>(static_cast<unsigned short>(tail[index] << 8) + static_cast<unsigned char>(tail[index + 1]));
+}
+
+uint32_t getExpectedFileSize(uint32_t image_size, uint32_t ICCProfile_size) {
+	return image_size + App2Marker.size() + SegmentLengthSize + ICC_PROFILE_Identify.size() + ICCProfile_size;
+}
+
+bool EmbedICCProfile(unsigned char *image, int image_size, int image_reserve_size, const unsigned char *ICCProfile, int ICCProfile_size, int* output_size) {
+	if (ICCProfile_size > 0xFFFF) {
+		*output_size = image_size;
+		return false;
+	}
+
+	uint32_t expectedFileSize = image_size + App2Marker.size() + SegmentLengthSize + ICC_PROFILE_Identify.size() + ICCProfile_size;
+
+	if (image_reserve_size < expectedFileSize) {
+		*output_size = image_size;
+		return false;
+	}
+
+	std::unique_ptr<unsigned char[]> App0(new unsigned char[SOIandApp0SizeWithoutThumbnail]);
+	memcpy(App0.get(), image, SOIandApp0SizeWithoutThumbnail);
+
+	int App0HeaderSize;
+	std::vector<unsigned char> temp;
+	temp.reserve(SegmentLengthSize + 1);
+
+	unsigned char *ptr = App0.get() + SOI.size() + App0Marker.size();
+	for (uint32_t i = 0; i < SegmentLengthSize; i++, ptr++)
+		temp.push_back(*ptr);
+
+	if (isLittleEndian())
+		std::reverse(temp.begin(), temp.end());
+
+	App0HeaderSize = toInt16(temp.data(), 0);
+
+	std::unique_ptr<unsigned char[]> App2SegmentSizeBuffer(new unsigned char[SegmentLengthSize]);
+	int32_t App2SegmentSize = ICCProfile_size + ICC_PROFILE_Identify.size() + SegmentLengthSize;
+
+	if (isLittleEndian()) {
+		App2SegmentSizeBuffer[0] = *(reinterpret_cast<unsigned char *>(&App2SegmentSize) + 1);
+		App2SegmentSizeBuffer[1] = *(reinterpret_cast<unsigned char *>(&App2SegmentSize));
+	}
+	else {
+		memcpy(App2SegmentSizeBuffer.get(), reinterpret_cast<unsigned char *>(&App2SegmentSize), 2);
+	}
+
+	std::unique_ptr<unsigned char[]> msJpegImageWithoutHeader(new unsigned char[image_size]);
+	memcpy(msJpegImageWithoutHeader.get(), image, image_size);
+
+	unsigned char *ptr2 = image + SOI.size() + App0Marker.size() + App0HeaderSize;
+	memcpy(ptr2, App2Marker.data(), App2Marker.size());
+	ptr2 += App2Marker.size();
+	memcpy(ptr2, App2SegmentSizeBuffer.get(), SegmentLengthSize);
+	ptr2 += SegmentLengthSize;
+	memcpy(ptr2, ICC_PROFILE_Identify.data(), ICC_PROFILE_Identify.size());
+	ptr2 += ICC_PROFILE_Identify.size();
+	memcpy(ptr2, ICCProfile, ICCProfile_size);
+	ptr2 += ICCProfile_size;
+	uint32_t JpegImageDataLength = image_size - (App0HeaderSize + SOI.size() + App0Marker.size());
+	memcpy(ptr2, msJpegImageWithoutHeader.get() + SOI.size() + App0Marker.size() + App0HeaderSize, JpegImageDataLength);
+	*output_size = expectedFileSize;
+	return true;
+}
+
+extern "C" __declspec(dllexport) void heif2jpg(const char heif_bin[], int input_buffer_size, const int jpg_quality, char output_buffer[], int output_buffer_size, const char* input_temp_filename, int* copysize, bool include_exif, bool color_profile, const char icc_bin[], int icc_size) {
 	const char* temp_filename = input_temp_filename;
+	//拷贝string内容到output_buffer
 	auto copy_to_output_buffer = [&output_buffer, &output_buffer_size, &copysize](const std::string& source) {
 		if (output_buffer_size < source.size())
 			return false;
@@ -288,6 +377,16 @@ extern "C" __declspec(dllexport) void heif2jpg(const char heif_bin[], int input_
 		memset(output_buffer, 0, output_buffer_size);
 		memcpy(output_buffer, source.data(), source.size());
 		*copysize = source.size();
+		return true;
+	};
+	//战斗民族暴力拷贝裸指针内容到output_buffer
+	auto copy_to_output_buffer_Russian = [&output_buffer, &output_buffer_size, &copysize](const void *data, uint32_t length) {
+		if (output_buffer_size < length)
+			return false;
+
+		memset(output_buffer, 0, output_buffer_size);
+		memcpy(output_buffer, data, length);
+		*copysize = length;
 		return true;
 	};
 
@@ -346,7 +445,7 @@ extern "C" __declspec(dllexport) void heif2jpg(const char heif_bin[], int input_
 		//剪裁
 		//clip
 		auto fullImage(resize(vconcatLine(lines), data));
-				
+
 		//旋转
 		//rotate
 		//有exif信息时不需要旋转，因为exif中记录了角度。但是假如没有exif信息，就需要旋转了，否则图片角度就不对
@@ -366,7 +465,7 @@ extern "C" __declspec(dllexport) void heif2jpg(const char heif_bin[], int input_
 		copy_to_output_buffer("HUD_ERR heif2jpg unknown");
 		return;
 	}
-		
+
 	if (include_exif) {
 		encoded_jpg.erase(encoded_jpg.begin(), encoded_jpg.begin() + image_data_offset);
 
@@ -379,6 +478,26 @@ extern "C" __declspec(dllexport) void heif2jpg(const char heif_bin[], int input_
 		temp += encoded_jpg;
 
 		encoded_jpg = std::move(temp);
+	}
+
+	if (color_profile) {
+		auto reserve_size = getExpectedFileSize(encoded_jpg.size(), icc_size);
+		if (reserve_size < encoded_jpg.size())
+			if (!copy_to_output_buffer(encoded_jpg))
+				copy_to_output_buffer("HUD_ERR heif2jpg buffer to small");
+
+		std::unique_ptr<unsigned char[]> buffer_cp(new unsigned char[reserve_size]);
+		memcpy(buffer_cp.get(), encoded_jpg.data(), encoded_jpg.size());
+		int outsize = 0;
+
+		if(!EmbedICCProfile(buffer_cp.get(), encoded_jpg.size(), reserve_size, reinterpret_cast<const unsigned char*>(icc_bin), icc_size, &outsize))
+			if (!copy_to_output_buffer(encoded_jpg))
+				copy_to_output_buffer("HUD_ERR heif2jpg buffer to small");
+
+		if (!copy_to_output_buffer_Russian(buffer_cp.get(), outsize))
+			copy_to_output_buffer("HUD_ERR heif2jpg buffer to small");
+
+		return;
 	}
 
 	if (!copy_to_output_buffer(encoded_jpg))
