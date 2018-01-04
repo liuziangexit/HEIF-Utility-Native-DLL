@@ -20,7 +20,7 @@ Parameter input_temp_filename: Set temporary file name(when this function finish
 Parameter copysize: the content of this pointer will store the output jpg image's real size<br>
 Parameter include_exif: if this == true, then the output jpg image will have the EXIF metadata<br>
 Parameter color_profile: if this == true, this function will embed ICC Color Profile to output jpg image<br>
-Parameter icc_bin: the binary data of the ICC Profile(Display P3's ICC Profile can be found in here: https://github.com/liuziangexit/EmbedICCProfile/tree/master/icc-profile . if the parameter "color_profile"==false,icc_bin can be NULL.<br>
+Parameter icc_bin: the binary data of the ICC Profile(Display P3's ICC Profile can be found in here: https://github.com/liuziangexit/EmbedICCProfile/tree/master/icc-profile) . if the parameter "color_profile"==false,icc_bin can be NULL.<br>
 Parameter icc_size:size of icc_bin<br>
 Exception: None<br>
 
