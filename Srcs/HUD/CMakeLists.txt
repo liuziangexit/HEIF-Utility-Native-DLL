@@ -9,5 +9,5 @@ include_directories("${PROJECT_BINARY_DIR}")
 set(WRITERAPP_SRCS
 	main.cpp)
 
-add_executable(${WRITER_EXE} ${WRITERAPP_SRCS})
+add_library(${WRITER_EXE} SHARED ${WRITERAPP_SRCS})
 target_link_libraries(${WRITER_EXE} json heifwriter)
