@@ -4,8 +4,8 @@
 #include <string>
 #include <memory>
 #include "DC_Exception.h"
-//Version 2.4.21V30
-//20170914
+//Version 2.4.21V45
+//20171030
 
 #define ERROR_CANTOPENFILE DC::DC_ERROR(filename, "CAN NOT OPEN FILE")
 #define ERROR_CANTGETSIZE DC::DC_ERROR(filename, "CAN NOT GET FILE SIZE")
@@ -132,7 +132,7 @@ namespace DC {
 
 		template<typename FLAG = text>
 		std::string read(const std::string& filename) {
-			static_assert(std::is_same<std::decay_t<FLAG>, text>::value, "flag illegal");
+            static_assert(std::is_same<typename std::decay<FLAG>::type, text>::value, "flag illegal");
 
 			file_ptr ptr;
 			auto size = getSize(filename, ptr);

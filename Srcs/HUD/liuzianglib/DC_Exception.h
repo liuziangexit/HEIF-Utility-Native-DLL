@@ -3,8 +3,8 @@
 #define liuzianglib_ERROR
 #include <string>
 #include <time.h>
-//Version 2.4.21V30
-//20170914
+//Version 2.4.21V45
+//20171030
 
 namespace DC {
 
@@ -12,7 +12,7 @@ namespace DC {
 	public:
 		Exception() = default;
 
-		template <typename T, class = typename std::enable_if<!std::is_same<typename std::decay<T>::type, Exception>::value, U>::type>
+		template <typename T, class = typename std::enable_if<!std::is_same<typename std::decay<T>::type, Exception>::value, std::string>::type>
 		Exception(T&& inputTitle) {
 			Title = std::forward<T>(inputTitle);
 		}

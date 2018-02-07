@@ -9,8 +9,8 @@
 #include "liuzianglib.h"
 #include "DC_STR.h"
 #include "DC_var.h"
-//Version 2.4.21V30
-//20170914
+//Version 2.4.21V46
+//20171202
 
 namespace DC {
 
@@ -47,7 +47,7 @@ namespace DC {
 				std::vector<PosPair> getSymbolPair(const std::string& str, const char* const StartSymbol, const char* const EndSymbol) {//找出配对的符号，比如可以解析((2+2)*(1+1)*6)这种东西。
 																																		//返回值是std::vector<PosPair>，每一个PosPair都是一对符号的位置，PosPair<0>是开始符号的位置，PosPair<1>是结束符号的位置
 																																		//不支持StartSymbol==EndSymbol的情况
-					std::vector<std::size_t> AllStartSymbol = DC::STR::find(str, StartSymbol).getplace_ref(), AllEndSymbol = DC::STR::find(str, EndSymbol).getplace_ref();
+					std::vector<std::size_t> AllStartSymbol = DC::STR::find(str, StartSymbol).places, AllEndSymbol = DC::STR::find(str, EndSymbol).places;
 					std::vector<PosPair> returnvalue;
 
 					if (!SybolValid(AllStartSymbol, AllEndSymbol)) throw DC::DC_ERROR("invalid string", "symbols can not be paired");//判断开始符号和结束符号数量是否一样				
@@ -136,7 +136,7 @@ namespace DC {
 			class transparent final :public jsonSpace::base {
 				friend class object;
 			public:
-				transparent::transparent() :withTable(false) {}
+				transparent() :withTable(false) {}
 
 				transparent(const std::string&);
 
@@ -472,7 +472,7 @@ namespace DC {
 
 				inline bool is_double()const noexcept {
 					try {
-						return DC::STR::find(rawStr, ".").getplace_ref().size() == 1;
+						return DC::STR::find(rawStr, ".").places.size() == 1;
 					}
 					catch (...) {
 						return false;
@@ -603,7 +603,7 @@ namespace DC {
 				transparent at(const std::string& key)const {
 					//搜索key
 					auto findResult_Full = DC::STR::find(rawStr, jsonSpace::GetJsStr(key));
-					auto findResult = findResult_Full.getplace_ref();
+					auto findResult = findResult_Full.places;
 					auto findNeXTcharReverse = [this](const DC::pos_type& from) {
 						if (from <= 0 || this->rawStr.size() == 0 || from + 1 > this->rawStr.size()) throw false;//没找到
 						for (auto i = from - 1; i >= 0; i--) {
@@ -616,7 +616,7 @@ namespace DC {
 					//判断key在本层（既不在字符串内，又不在其它对象内，同时也不能是一个value）
 					for (auto i = findResult.begin(); i != findResult.end();) {
 						auto isValue = [&findNeXTcharReverse, this](const DC::pos_type& input) {//是否为一个value(在冒号之后的
-							std::result_of_t<decltype(findNeXTcharReverse)(const DC::pos_type&)> result;//这个类型是findNeXTcharReverse的返回值类型							
+							std::result_of<decltype(findNeXTcharReverse)(const DC::pos_type&)>::type result;//这个类型是findNeXTcharReverse的返回值类型							
 							try {
 								if (input - 1 < 0 || input - 1 + 1 > this->rawStr.size()) return false;//下标非法了
 								if (this->rawStr[input - 1] == ':') return true;
@@ -646,7 +646,7 @@ namespace DC {
 					std::size_t startpos = 0, endpos = 0, temp;
 					//找key之后第一个冒号
 					try {
-						temp = findNeXTchar(':', *findResult.begin() + findResult_Full.getsize());
+						temp = findNeXTchar(':', *findResult.begin() + findResult_Full.remove_length);
 					}
 					catch (...) {
 						throw DC::DC_ERROR("object::at", "can not find separator");//找不到冒号
@@ -813,7 +813,7 @@ namespace DC {
 																								 //不能嵌套哦
 																								 //有一次参数拷贝开销
 					auto tstr = DC::STR::replace(str, DC::STR::find(str, R"(\")"), "  ");//把\"换成两个空格，既保证了长度不变，又保证了去除用户字符串里面的引号
-					std::vector<std::size_t> AllSymbol = DC::STR::find(tstr, "\"").moveplace();
+					std::vector<std::size_t> AllSymbol = std::move(DC::STR::find(tstr, "\"").places);
 					std::vector<jsonSpace::PosPair> returnvalue;
 
 					if (AllSymbol.size() % 2 != 0)
@@ -829,7 +829,7 @@ namespace DC {
 				}
 
 				std::vector<jsonSpace::PosPair> getSymbolPair(const char* const StartSymbol, const char* const EndSymbol)const {//防止js字符串里的符号影响
-					std::vector<std::size_t> AllStartSymbolRaw = DC::STR::find(rawStr, StartSymbol).getplace_ref(), AllEndSymbolRaw = DC::STR::find(rawStr, EndSymbol).getplace_ref();
+					std::vector<std::size_t> AllStartSymbolRaw = DC::STR::find(rawStr, StartSymbol).places, AllEndSymbolRaw = DC::STR::find(rawStr, EndSymbol).places;
 					std::vector<std::size_t> AllStartSymbol, AllEndSymbol;
 					std::vector<jsonSpace::PosPair> returnvalue;
 

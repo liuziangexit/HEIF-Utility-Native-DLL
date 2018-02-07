@@ -7,8 +7,8 @@
 #include <string>
 #include <cctype>
 #include <functional>
-//Version 2.4.21V30
-//20170914
+//Version 2.4.21V42
+//20171026
 
 namespace DC {
 
@@ -70,6 +70,14 @@ namespace DC {
 					virtual void Set(const std::string& input)override {
 						DC::KeyValuePair::Set(input);
 						if (!value.empty()) if (*value.begin() == ' ') value.erase(value.begin());
+					}
+
+					inline void SetName(const std::string& str) {
+						this->name = str;
+					}
+
+					inline void SetValue(const std::string& str) {
+						this->value = str;
 					}
 
 				protected:
@@ -222,6 +230,14 @@ namespace DC {
 					return m_data.empty();
 				}
 
+				inline std::vector<httpSpace::header>::iterator begin() {
+					return m_data.begin();
+				}
+
+				inline std::vector<httpSpace::header>::iterator end() {
+					return m_data.end();
+				}
+
 			private:
 				std::string toStr()const {
 					std::string returnvalue;
@@ -242,10 +258,12 @@ namespace DC {
 			namespace httpSpace {
 
 				class base {
-					 template<typename titleType, typename headersType, typename bodyType>
-					 friend void Derived_construct(base& object, titleType&& inputtitle, headersType&& inputheaders, bodyType&& inputbody);
+					template<typename titleType, typename headersType, typename bodyType>
+					friend void Derived_construct(base& object, titleType&& inputtitle, headersType&& inputheaders, bodyType&& inputbody);
 				public:
-					base() = default;
+					base() {
+						set_version(1.1);
+					}
 
 					base(const base&) = default;
 
@@ -264,7 +282,7 @@ namespace DC {
 					inline void set_version(const double& input) { m_title.version = DC::STR::toString(input); }
 
 					inline void set_version(const std::string& input) { m_title.version = input; }
-					
+
 					inline http::headers& headers() {
 						return m_headers;
 					}
@@ -302,7 +320,7 @@ namespace DC {
 				template<>
 				inline httpSpace::title title_deserialization<http::request>(const std::string& input) {
 					auto loca = DC::STR::find(input, " ");
-					if (loca.getplace_ref().empty()) throw DC::DC_ERROR("title_deserialization", "method not found");
+					if (loca.places.empty()) throw DC::DC_ERROR("title_deserialization", "method not found");
 					auto GetVersionNumStr = [](const std::string& input) {
 						std::string rv;
 						for (const auto& p : input) {
@@ -310,17 +328,17 @@ namespace DC {
 						}
 						return rv;
 					};
-					auto methodAndURI = DC::STR::getSub(input, -1, *loca.getplace_ref().rbegin());
+					auto methodAndURI = DC::STR::getSub(input, -1, *loca.places.rbegin());
 					auto frs = methodAndURI.find_first_of(' ');
 					if (frs == std::string::npos) throw DC::DC_ERROR("title_deserialization", "space not found");
 
-					return httpSpace::title(GetVersionNumStr(DC::STR::getSub(input, *loca.getplace_ref().rbegin(), input.size())), DC::STR::getSub(methodAndURI, -1, frs), DC::STR::getSub(methodAndURI, frs, methodAndURI.size()));
+					return httpSpace::title(GetVersionNumStr(DC::STR::getSub(input, *loca.places.rbegin(), input.size())), DC::STR::getSub(methodAndURI, -1, frs), DC::STR::getSub(methodAndURI, frs, methodAndURI.size()));
 				}
 
 				template<>
 				inline httpSpace::title title_deserialization<http::response>(const std::string& input) {
 					auto loca = DC::STR::find(input, " ");
-					if (loca.getplace_ref().empty()) throw DC::DC_ERROR("title_deserialization", "method not found");
+					if (loca.places.empty()) throw DC::DC_ERROR("title_deserialization", "method not found");
 					auto GetVersionNumStr = [](const std::string& input) {
 						std::string rv;
 						for (const auto& p : input) {
@@ -329,24 +347,24 @@ namespace DC {
 						return rv;
 					};
 					auto frs = DC::STR::find(input, " ");
-					if (frs.getplace_ref().empty()) throw DC::DC_ERROR("title_deserialization", "space not found");
-					return httpSpace::title(GetVersionNumStr(DC::STR::getSub(input, -1, *loca.getplace_ref().begin())), (http::status_code)(DC::STR::toType<int32_t>(DC::STR::getSub(input, *frs.getplace_ref().begin(), *frs.getplace_ref().rbegin()))));
+					if (frs.places.empty()) throw DC::DC_ERROR("title_deserialization", "space not found");
+					return httpSpace::title(GetVersionNumStr(DC::STR::getSub(input, -1, *loca.places.begin())), (http::status_code)(DC::STR::toType<int32_t>(DC::STR::getSub(input, *frs.places.begin(), *frs.places.rbegin()))));
 				}
 
 				http::headers headers_deserialization(const std::string& input) {
 					http::headers rv;
 					auto frs = DC::STR::find(input, http::httpSpace::nextline);
-					if (frs.getplace_ref().empty()) {
+					if (frs.places.empty()) {
 						if (input.empty()) return rv;
 						//只有一行的情况
 						rv.add(input);
 						return rv;
 					}
-					rv.add(DC::STR::getSub(input, -1, *frs.getplace_ref().begin()));
-					for (std::size_t i = 1; i < frs.getplace_ref().size(); i++) {
-						rv.add(DC::STR::getSub(input, frs.getplace_ref()[i - 1] + 1, frs.getplace_ref()[i]));
+					rv.add(DC::STR::getSub(input, -1, *frs.places.begin()));
+					for (std::size_t i = 1; i < frs.places.size(); i++) {
+						rv.add(DC::STR::getSub(input, frs.places[i - 1] + 1, frs.places[i]));
 					}
-					rv.add(DC::STR::getSub(input, frs.getplace_ref()[frs.getplace_ref().size() - 1] + 1, input.size()));
+					rv.add(DC::STR::getSub(input, frs.places[frs.places.size() - 1] + 1, input.size()));
 					return rv;
 				}
 
@@ -439,15 +457,15 @@ namespace DC {
 
 				auto emptylineLoca = DC::STR::find(input, httpSpace::emptyline);
 				try {
-					if (emptylineLoca.getplace_ref().empty())
+					if (emptylineLoca.places.empty())
 						headersraw = DC::STR::getSub(input, titleend, input.size());
 					else
-						headersraw = DC::STR::getSub(input, titleend, *emptylineLoca.getplace_ref().begin());
+						headersraw = DC::STR::getSub(input, titleend, *emptylineLoca.places.begin());
 				}
 				catch (...) {}
 
 				try {
-					if (!emptylineLoca.getplace_ref().empty()) bodyraw = DC::STR::getSub(input, *emptylineLoca.getplace_ref().begin() + sizeof(httpSpace::emptyline) - 1, input.size());
+					if (!emptylineLoca.places.empty()) bodyraw = DC::STR::getSub(input, *emptylineLoca.places.begin() + sizeof(httpSpace::emptyline) - 1, input.size());
 				}
 				catch (...) {}
 
@@ -466,23 +484,23 @@ namespace DC {
 				auto emptylineLoca = DC::STR::find(input, httpSpace::emptyline);
 				auto threeCrlf = DC::STR::find(input, "\r\n\r\n\r\n");
 				try {
-					if (emptylineLoca.getplace_ref().empty())
+					if (emptylineLoca.places.empty())
 						headersraw = DC::STR::getSub(input, titleend, input.size());
 					else
-						headersraw = DC::STR::getSub(input, titleend + 1, *emptylineLoca.getplace_ref().begin());
+						headersraw = DC::STR::getSub(input, titleend + 1, *emptylineLoca.places.begin());
 				}
 				catch (...) {}
 
 				try {
-					if (emptylineLoca.getplace_ref().empty()) throw false;
+					if (emptylineLoca.places.empty()) throw false;
 
-					if (!threeCrlf.getplace_ref().empty()) {
-						if (*threeCrlf.getplace_ref().begin() == *emptylineLoca.getplace_ref().begin()) {
-							bodyraw = DC::STR::getSub(input, *emptylineLoca.getplace_ref().begin() - 1 + sizeof("\r\n\r\n\r\n") - 1, input.size());
+					if (!threeCrlf.places.empty()) {
+						if (*threeCrlf.places.begin() == *emptylineLoca.places.begin()) {
+							bodyraw = DC::STR::getSub(input, *emptylineLoca.places.begin() - 1 + sizeof("\r\n\r\n\r\n") - 1, input.size());
 							throw true;
 						}
 					}
-					bodyraw = DC::STR::getSub(input, *emptylineLoca.getplace_ref().begin() + sizeof(httpSpace::emptyline) - 1, input.size());
+					bodyraw = DC::STR::getSub(input, *emptylineLoca.places.begin() + sizeof(httpSpace::emptyline) - 1, input.size());
 				}
 				catch (...) {}
 

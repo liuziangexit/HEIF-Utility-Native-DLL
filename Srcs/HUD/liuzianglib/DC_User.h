@@ -7,8 +7,8 @@
 #include "DC_Exception.h"
 #include "DC_MD5.h"
 #pragma comment(lib,"ws2_32.lib")
-//Version 2.4.21V30
-//20170914
+//Version 2.4.21V44
+//20171027
 
 namespace DC {
 	
@@ -166,7 +166,7 @@ namespace DC {
 					return UserSpace::USEX("Return Value", "VerUser_ByUniqueID:user doesn't exist", 0);
 				return UserSpace::USEX("Return Value", "VerUser_ByUniqueID:user exist", 1);
 			}
-
+			
 		private:
 			std::string GetHash(std::string str) {
 				std::string temp = md5.toString(str), temp2;
@@ -174,10 +174,10 @@ namespace DC {
 				temp2.resize(8);
 				return temp + temp2;
 			}
-
-		private:
-			DC_MySQL sql_connection;
 			MD5 md5;
+
+		public:
+			DC_MySQL sql_connection;			
 		};
 
 	}
