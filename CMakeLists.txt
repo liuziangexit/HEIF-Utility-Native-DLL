@@ -10,7 +10,7 @@
 # https://nokiatech.github.io/heif/license.txt
 
 # The project name
-project(HEIF)
+project(HEIF-Utility-Native-DLL)
 
 # Required version of CMake
 cmake_minimum_required(VERSION 2.8 FATAL_ERROR)
