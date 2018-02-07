@@ -1,8 +1,8 @@
 ﻿# HEIF-Utility-Native-DLL
-Note: My English is not good...but i hope you can understand this..if you have any questions, please create a issue.(Do not use too complicated words)<br><br>
 HUD.dll is a part of <a href="https://github.com/liuziangexit/HEIF-Utility">HEIF-Utility</a>.<br>
 It can convert Apple HEIF to JPEG with EXIF metadata and Color Profile.The output quality can be custom.<br>
 <a href="https://github.com/liuziangexit/HEIF-Utility-Native-DLL/blob/master/Srcs/HUD/main.cpp">Main Source Code</a><br>
+If you don't understand how to build this project pls view: https://www.youtube.com/watch?v=F-4jwy8rV24&feature=youtu.be<br>
 
 <h2>Overview</h2>
 This project generates HUD.dll, which is part of the HEIF Utility.<br>
